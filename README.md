@@ -1,6 +1,6 @@
 # Task Tracker
 
-Kanban-доска для управления задачами. Аналог Jira/Linear.
+Kanban-доска для управления задачами. Аналог Linear.
 
 ## Стек
 - React + TypeScript
