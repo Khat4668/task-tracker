@@ -6,22 +6,129 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { useCreateIssueMutation } from "@/store/issuesApi";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Controller, useForm } from "react-hook-form";
+import { issueSchema, type IssueFormData } from "./schema";
+
 type Props = {
   isOpen: boolean;
   setIsOpen: (value: boolean) => void;
 };
 
 const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<IssueFormData>({
+    resolver: zodResolver(issueSchema),
+  });
+
+  const [createIssue, { isLoading }] = useCreateIssueMutation();
+
+  const onSubmit = async (data: IssueFormData) => {
+    try {
+      await createIssue(data).unwrap();
+      setIsOpen(false);
+    } catch (error) {
+      console.error("Failed to create issue:", error);
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          <DialogTitle>Create Issue</DialogTitle>
           <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
+            Fill in the details of the new task
           </DialogDescription>
         </DialogHeader>
+        <form className="flex flex-col gap-5" onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex flex-col gap-2">
+            <Label>Title</Label>
+            <Input {...register("title")} />
+            {errors.title && (
+              <span className="text-sm text-red-500">
+                {errors.title.message}
+              </span>
+            )}
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Description</Label>
+            <Textarea
+              placeholder="Enter description"
+              {...register("description")}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Status</Label>
+            <Controller
+              name="status"
+              control={control}
+              defaultValue="backlog"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Status</SelectLabel>
+                      <SelectItem value="backlog">Backlog</SelectItem>
+                      <SelectItem value="in_progress">In Progress</SelectItem>
+                      <SelectItem value="review">Review</SelectItem>
+                      <SelectItem value="done">Done</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Priority</Label>
+            <Controller
+              name="priority"
+              control={control}
+              defaultValue="low"
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Priority</SelectLabel>
+                      <SelectItem value="low">Low</SelectItem>
+                      <SelectItem value="medium">Medium</SelectItem>
+                      <SelectItem value="high">High</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <Label>Tag</Label>
+            <Input {...register("tag")} />
+          </div>
+          <Button type="submit">Create</Button>
+        </form>
       </DialogContent>
     </Dialog>
   );
