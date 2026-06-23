@@ -13,7 +13,7 @@ const IssueCard = ({ issue }: Props) => {
         <p className="mb-2">{issue.title}</p>
         <div className="flex gap-2 mb-2">
           <Badge>{issue.priority}</Badge>
-          <Badge>{issue.tag}</Badge>
+          {issue.tag && <Badge>{issue.tag}</Badge>}
         </div>
         <p className="text-xs">Created {issue.created_at}</p>
       </CardContent>
