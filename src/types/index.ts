@@ -10,4 +10,5 @@ export type Issue = {
   tag: string;
   created_at: string;
   user_id: string;
+  position: number;
 };
