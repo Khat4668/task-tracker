@@ -39,7 +39,19 @@ export const issuesApi = createApi({
           return { error };
         }
       },
-      invalidatesTags: ["Issues"],
+      async onQueryStarted({ id, ...patch }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          issuesApi.util.updateQueryData("getIssues", undefined, (draft) => {
+            const issue = draft.find((i) => i.id === id);
+            if (issue) Object.assign(issue, patch);
+          }),
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
   }),
 });
