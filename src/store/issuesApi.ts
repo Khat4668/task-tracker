@@ -1,6 +1,7 @@
+import type { UpdateIssueParams } from "@/api/issues";
 import { createIssue, getIssues, updateIssue } from "@/api/issues";
 import type { IssueFormData } from "@/components/CreateIssueModal/schema";
-import type { Issue, Status } from "@/types";
+import type { Issue } from "@/types";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const issuesApi = createApi({
@@ -30,10 +31,10 @@ export const issuesApi = createApi({
       },
       invalidatesTags: ["Issues"],
     }),
-    updateIssue: builder.mutation<Issue, { id: string; status: Status }>({
-      queryFn: async ({ id, status }) => {
+    updateIssue: builder.mutation<Issue, UpdateIssueParams>({
+      queryFn: async (params) => {
         try {
-          const data = await updateIssue(id, status);
+          const data = await updateIssue(params);
           return { data };
         } catch (error) {
           return { error };

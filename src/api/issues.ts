@@ -1,6 +1,12 @@
 import type { IssueFormData } from "@/components/CreateIssueModal/schema";
-import type { Issue, Status } from "@/types/";
+import type { Issue, Status } from "@/types";
 import { supabase } from "./supabase";
+
+export type UpdateIssueParams = {
+  id: string;
+  status: Status;
+  position: number;
+};
 
 export const getIssues = async (): Promise<Issue[]> => {
   const { data, error } = await supabase
@@ -34,15 +40,18 @@ export const createIssue = async (issue: IssueFormData) => {
   return data;
 };
 
-export const updateIssue = async (id: string, newStatus: Status) => {
+export const updateIssue = async ({
+  id,
+  status,
+  position,
+}: UpdateIssueParams) => {
   const { data, error } = await supabase
     .from("issues")
-    .update({ status: newStatus })
+    .update({ status, position })
     .eq("id", id)
     .select()
     .single();
 
   if (error) throw error;
-
   return data;
 };

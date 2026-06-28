@@ -1,5 +1,6 @@
 import IssueCard from "@/components/IssueCard/IssueCard";
 import type { Issue, Status } from "@/types";
+import { CollisionPriority } from "@dnd-kit/abstract";
 import { useDroppable } from "@dnd-kit/react";
 
 type Props = {
@@ -15,7 +16,12 @@ const KanbanColumn = ({ status, issues }: Props) => {
     done: "Done",
   };
 
-  const { ref } = useDroppable({ id: status });
+  const { ref } = useDroppable({
+    id: status,
+    type: "column",
+    accept: "item",
+    collisionPriority: CollisionPriority.Low,
+  });
 
   return (
     <div ref={ref} className="bg-[#0f1010] p-4 rounded-[14px] flex-1 h-full">
@@ -25,8 +31,8 @@ const KanbanColumn = ({ status, issues }: Props) => {
       </div>
 
       <div className="grid gap-4">
-        {issues.map((issue) => {
-          return <IssueCard key={issue.id} issue={issue} />;
+        {issues.map((issue, index) => {
+          return <IssueCard key={issue.id} issue={issue} index={index} />;
         })}
       </div>
     </div>

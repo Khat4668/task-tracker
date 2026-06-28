@@ -1,14 +1,21 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Issue } from "@/types";
-import { useDraggable } from "@dnd-kit/react";
+import { useSortable } from "@dnd-kit/react/sortable";
+import { memo } from "react";
 
 type Props = {
   issue: Issue;
+  index: number;
 };
 
-const IssueCard = ({ issue }: Props) => {
-  const { ref } = useDraggable({ id: issue.id });
+const IssueCard = memo(({ issue, index }: Props) => {
+  const { ref } = useSortable({
+    id: issue.id,
+    index,
+    group: issue.status,
+    type: "item",
+  });
   return (
     <Card ref={ref} className="w-full max-w-sm">
       <CardContent className="pl-4 pr-4">
@@ -21,6 +28,6 @@ const IssueCard = ({ issue }: Props) => {
       </CardContent>
     </Card>
   );
-};
+});
 
 export default IssueCard;
