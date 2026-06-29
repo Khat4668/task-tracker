@@ -6,6 +6,7 @@ import type { DragEndEvent } from "@dnd-kit/react";
 import { DragDropProvider } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 import { useEffect, useRef, useState } from "react";
+import { calculatePosition } from "./calculatePosition";
 import { groupByStatus } from "./groupByStatus";
 
 type Props = {
@@ -44,20 +45,10 @@ const KanbanBoard = ({ issues }: Props) => {
 
     const realIndex = destItems.findIndex((issue) => issue.id === source.id);
 
-    const prev = destItems[realIndex - 1];
-    const next = destItems[realIndex + 1];
-
-    let position: number;
-
-    if (!prev && !next) {
-      position = 1;
-    } else if (!prev) {
-      position = next.position / 2;
-    } else if (!next) {
-      position = prev.position + 1;
-    } else {
-      position = (prev.position + next.position) / 2;
-    }
+    const position = calculatePosition(
+      destItems[realIndex - 1]?.position,
+      destItems[realIndex + 1]?.position,
+    );
 
     try {
       await updateIssue({
