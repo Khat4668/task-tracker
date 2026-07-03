@@ -1,9 +1,11 @@
+import { supabase } from "@/api/supabase";
 import CreateIssueModal from "@/components/CreateIssueModal/CreateIssueModal";
 import FilterBar from "@/components/FilterBar/FilterBar";
 import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/store/hooks";
 import { useGetIssuesQuery } from "@/store/issuesApi";
+import { LogOut } from "lucide-react";
 import { useState } from "react";
 
 const BoardPage = () => {
@@ -45,6 +47,14 @@ const BoardPage = () => {
         onClick={() => setIsOpen(true)}
       >
         Add Issue
+      </Button>
+      <Button
+        variant="ghost"
+        className="mb-4"
+        onClick={() => supabase.auth.signOut()}
+      >
+        <LogOut />
+        Sign out
       </Button>
       <FilterBar />
       <KanbanBoard issues={filteredIssues ?? []} />
