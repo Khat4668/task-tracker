@@ -1,4 +1,5 @@
 import { supabase } from "@/api/supabase";
+import { issuesApi } from "@/store/issuesApi";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Session } from "@supabase/supabase-js";
 
@@ -14,14 +15,16 @@ export const authApi = createApi({
       },
       async onCacheEntryAdded(
         _arg,
-        { updateCachedData, cacheDataLoaded, cacheEntryRemoved },
+        { updateCachedData, cacheDataLoaded, cacheEntryRemoved, dispatch },
       ) {
         await cacheDataLoaded;
 
         const {
           data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
+        } = supabase.auth.onAuthStateChange((event, session) => {
           updateCachedData(() => session);
+
+          if (event === "SIGNED_OUT") dispatch(issuesApi.util.resetApiState());
         });
 
         await cacheEntryRemoved;
