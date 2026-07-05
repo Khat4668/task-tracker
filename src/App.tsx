@@ -8,7 +8,7 @@ import ProtectedRoute from "./components/ProtectedRoute/ProtectedRoute";
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Navigate to="/board" />} />
+      <Route path="/" element={<Navigate to="/board" replace />} />
       <Route path="/login" element={<LoginPage />} />
       <Route
         path="/board"

@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import type { Issue } from "@/types";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { memo } from "react";
+import { useNavigate } from "react-router";
 
 type Props = {
   issue: Issue;
@@ -10,6 +11,8 @@ type Props = {
 };
 
 const IssueCard = memo(({ issue, index }: Props) => {
+  const navigate = useNavigate();
+
   const { ref } = useSortable({
     id: issue.id,
     index,
@@ -17,7 +20,11 @@ const IssueCard = memo(({ issue, index }: Props) => {
     type: "item",
   });
   return (
-    <Card ref={ref} className="w-full max-w-sm">
+    <Card
+      ref={ref}
+      className="w-full max-w-sm"
+      onClick={() => navigate(`/issues/${issue.id}`)}
+    >
       <CardContent className="pl-4 pr-4">
         <p className="mb-2">{issue.title}</p>
         <div className="flex gap-2 mb-2">
