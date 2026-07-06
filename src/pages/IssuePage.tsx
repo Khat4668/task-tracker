@@ -1,19 +1,21 @@
+import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useGetIssuesQuery } from "@/store/issuesApi";
-import { ArrowLeft, Calendar, Tag as TagIcon, Trash2 } from "lucide-react";
+import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 
-const priorityColors: Record<string, string> = {
+const priorityColors = {
   low: "bg-blue-500/10 text-blue-600 border-blue-500/20",
   medium: "bg-yellow-500/10 text-yellow-700 border-yellow-500/20",
   high: "bg-orange-500/10 text-orange-700 border-orange-500/20",
 };
 
-const statusLabels: Record<string, string> = {
-  todo: "To Do",
+const statusLabels = {
+  backlog: "Backlog",
   in_progress: "In Progress",
+  review: "Review",
   done: "Done",
 };
 
@@ -81,9 +83,7 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Status
             </p>
-            <Badge variant="outline">
-              {statusLabels[issue.status] ?? issue.status}
-            </Badge>
+            <Badge variant="outline">{statusLabels[issue.status]}</Badge>
           </div>
 
           <div>
@@ -121,13 +121,7 @@ const IssuePage = () => {
 
           <Separator />
 
-          <Button
-            variant="ghost"
-            size="sm"
-            className="text-destructive hover:text-destructive"
-          >
-            <Trash2 className="mr-2 h-4 w-4" /> Delete issue
-          </Button>
+          <DeleteIssueDialog issueId={issue.id} />
         </div>
       </div>
     </div>
