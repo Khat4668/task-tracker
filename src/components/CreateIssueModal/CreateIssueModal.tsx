@@ -39,7 +39,7 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
     resolver: zodResolver(issueSchema),
   });
 
-  const [createIssue, { isLoading }] = useCreateIssueMutation();
+  const [createIssue] = useCreateIssueMutation();
 
   const onSubmit = async (data: IssueFormData) => {
     try {
