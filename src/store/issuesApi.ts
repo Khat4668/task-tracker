@@ -1,5 +1,5 @@
 import type { UpdateIssueParams } from "@/api/issues";
-import { createIssue, getIssues, updateIssue } from "@/api/issues";
+import { createIssue, deleteIssue, getIssues, updateIssue } from "@/api/issues";
 import type { IssueFormData } from "@/components/CreateIssueModal/schema";
 import type { Issue } from "@/types";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
@@ -54,6 +54,17 @@ export const issuesApi = createApi({
         }
       },
     }),
+    deleteIssue: builder.mutation<void, string>({
+      queryFn: async (id) => {
+        try {
+          await deleteIssue(id);
+          return { data: undefined };
+        } catch (error) {
+          return { error };
+        }
+      },
+      invalidatesTags: ["Issues"],
+    }),
   }),
 });
 
@@ -61,4 +72,5 @@ export const {
   useGetIssuesQuery,
   useCreateIssueMutation,
   useUpdateIssueMutation,
+  useDeleteIssueMutation,
 } = issuesApi;

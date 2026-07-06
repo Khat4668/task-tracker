@@ -13,8 +13,8 @@ export const getIssues = async (): Promise<Issue[]> => {
     .from("issues")
     .select("*")
     .order("position");
-  if (error) throw error;
 
+  if (error) throw error;
   return data;
 };
 
@@ -36,7 +36,6 @@ export const createIssue = async (issue: IssueFormData) => {
     .single();
 
   if (error) throw error;
-
   return data;
 };
 
@@ -53,5 +52,17 @@ export const updateIssue = async ({
     .single();
 
   if (error) throw error;
+  return data;
+};
+
+export const deleteIssue = async (id: string) => {
+  const { data, error } = await supabase
+    .from("issues")
+    .delete()
+    .eq("id", id)
+    .select();
+
+  if (error) throw error;
+  if (!data.length) throw new Error("Issue not found or no permission");
   return data;
 };
