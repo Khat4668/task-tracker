@@ -1,6 +1,6 @@
 import type { UpdateIssueParams } from "@/api/issues";
 import { createIssue, deleteIssue, getIssues, updateIssue } from "@/api/issues";
-import type { IssueFormData } from "@/components/CreateIssueModal/schema";
+import type { IssueFormData } from "@/lib/issue-schema";
 import type { Issue } from "@/types";
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 

@@ -1,4 +1,4 @@
-import type { IssueFormData } from "@/components/CreateIssueModal/schema";
+import type { IssueFormData } from "@/lib/issue-schema";
 import type { Issue, Status } from "@/types";
 import { supabase } from "./supabase";
 

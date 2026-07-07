@@ -19,10 +19,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { issueSchema, type IssueFormData } from "@/lib/issue-schema";
 import { useCreateIssueMutation } from "@/store/issuesApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
-import { issueSchema, type IssueFormData } from "./schema";
 
 type Props = {
   isOpen: boolean;
