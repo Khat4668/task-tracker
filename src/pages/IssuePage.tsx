@@ -1,4 +1,5 @@
 import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
+import EditableText from "@/components/EditableText/EditableText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -63,9 +64,11 @@ const IssuePage = () => {
           <span className="font-mono text-xs text-muted-foreground">
             {issue.id.slice(0, 8).toUpperCase()}
           </span>
-          <h1 className="mt-1 text-2xl font-semibold tracking-tight">
-            {issue.title}
-          </h1>
+
+          <EditableText
+            value={issue.title}
+            className={"mt-1 text-2xl font-semibold tracking-tight"}
+          />
 
           <Separator className="my-6" />
 
