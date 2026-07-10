@@ -1,12 +1,10 @@
 import type { IssueFormData } from "@/lib/issue-schema";
-import type { Issue, Status } from "@/types";
+import type { Issue } from "@/types";
 import { supabase } from "./supabase";
 
-export type UpdateIssueParams = {
-  id: string;
-  status: Status;
-  position: number;
-};
+export type UpdateIssueParams = { id: string } & Partial<
+  Pick<Issue, "title" | "status" | "position" | "description">
+>;
 
 export const getIssues = async (): Promise<Issue[]> => {
   const { data, error } = await supabase
@@ -39,14 +37,10 @@ export const createIssue = async (issue: IssueFormData) => {
   return data;
 };
 
-export const updateIssue = async ({
-  id,
-  status,
-  position,
-}: UpdateIssueParams) => {
+export const updateIssue = async ({ id, ...patch }: UpdateIssueParams) => {
   const { data, error } = await supabase
     .from("issues")
-    .update({ status, position })
+    .update(patch)
     .eq("id", id)
     .select()
     .single();

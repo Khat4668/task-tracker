@@ -3,10 +3,11 @@ import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 
 type Props = {
   value: string;
+  onSave: (value: string) => void;
   className: string;
 };
 
-const EditableText = ({ value, className }: Props) => {
+const EditableText = ({ value, className, onSave }: Props) => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [textValue, setTextValue] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ const EditableText = ({ value, className }: Props) => {
   };
 
   const handleSave = () => {
-    console.log(textValue);
+    if (textValue !== value || !textValue) onSave(textValue);
     setIsEditing(false);
   };
 

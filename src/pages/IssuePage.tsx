@@ -1,11 +1,13 @@
+import type { UpdateIssueParams } from "@/api/issues";
 import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
 import EditableText from "@/components/EditableText/EditableText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { useGetIssuesQuery } from "@/store/issuesApi";
+import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
+import { toast } from "sonner";
 
 const priorityColors = {
   low: "bg-blue-500/10 text-blue-600 border-blue-500/20",
@@ -30,6 +32,19 @@ const IssuePage = () => {
       isLoading,
     }),
   });
+
+  const [updateIssue] = useUpdateIssueMutation();
+
+  const handleUpdateIssue = async ({ id, ...patch }: UpdateIssueParams) => {
+    try {
+      await updateIssue({
+        id,
+        ...patch,
+      }).unwrap();
+    } catch {
+      toast.error("Failed to update issue");
+    }
+  };
 
   if (isLoading) {
     return (
@@ -67,6 +82,7 @@ const IssuePage = () => {
 
           <EditableText
             value={issue.title}
+            onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             className={"mt-1 text-2xl font-semibold tracking-tight"}
           />
 
