@@ -4,6 +4,7 @@ import EditableText from "@/components/EditableText/EditableText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { issueSchema } from "@/lib/issue-schema";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
@@ -46,6 +47,15 @@ const IssuePage = () => {
     }
   };
 
+  const validateTitle = (value: string): string | null => {
+    const result = issueSchema.shape.title.safeParse(value);
+    if (result.success) {
+      return null;
+    }
+
+    return result.error.issues[0].message;
+  };
+
   if (isLoading) {
     return (
       <div className="p-8 text-sm text-muted-foreground">Loading issue...</div>
@@ -83,7 +93,9 @@ const IssuePage = () => {
           <EditableText
             value={issue.title}
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
+            validate={validateTitle}
             className={"mt-1 text-2xl font-semibold tracking-tight"}
+            placeholder={"Issue title"}
           />
 
           <Separator className="my-6" />
