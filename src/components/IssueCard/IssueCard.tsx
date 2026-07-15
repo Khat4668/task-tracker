@@ -32,7 +32,11 @@ const IssueCard = memo(({ issue, index }: Props) => {
           <Badge className={priorityColors[issue.priority]} variant="outline">
             {priorityLabels[issue.priority]}
           </Badge>
-          {issue.tag && <Badge>{issue.tag}</Badge>}
+          {issue.tag && (
+            <Badge className="bg-muted text-muted-foreground">
+              {issue.tag}
+            </Badge>
+          )}
         </div>
         <p className="text-xs">
           Created {new Date(issue.created_at).toLocaleDateString("en-US")}
