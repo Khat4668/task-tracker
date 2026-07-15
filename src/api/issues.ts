@@ -3,7 +3,10 @@ import type { Issue } from "@/types";
 import { supabase } from "./supabase";
 
 export type UpdateIssueParams = { id: string } & Partial<
-  Pick<Issue, "title" | "status" | "position" | "description">
+  Pick<
+    Issue,
+    "title" | "status" | "position" | "priority" | "tag" | "description"
+  >
 >;
 
 export const getIssues = async (): Promise<Issue[]> => {

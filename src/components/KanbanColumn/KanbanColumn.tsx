@@ -1,4 +1,5 @@
 import IssueCard from "@/components/IssueCard/IssueCard";
+import { statusLabels } from "@/lib/issue-constants";
 import type { Issue, Status } from "@/types";
 import { CollisionPriority } from "@dnd-kit/abstract";
 import { useDroppable } from "@dnd-kit/react";
@@ -9,13 +10,6 @@ type Props = {
 };
 
 const KanbanColumn = ({ status, issues }: Props) => {
-  const statusLabels = {
-    backlog: "Backlog",
-    in_progress: "In Progress",
-    review: "Review",
-    done: "Done",
-  };
-
   const { ref } = useDroppable({
     id: status,
     type: "column",

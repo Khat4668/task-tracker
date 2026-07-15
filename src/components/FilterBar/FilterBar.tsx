@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { priorities, priorityLabels } from "@/lib/issue-constants";
 import {
   resetFilters,
   setPriority,
@@ -42,9 +43,11 @@ const FilterBar = () => {
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Priority</SelectLabel>
-              <SelectItem value="low">Low</SelectItem>
-              <SelectItem value="medium">Medium</SelectItem>
-              <SelectItem value="high">High</SelectItem>
+              {priorities.map((priority) => (
+                <SelectItem key={priority} value={priority}>
+                  {priorityLabels[priority]}
+                </SelectItem>
+              ))}
             </SelectGroup>
           </SelectContent>
         </Select>

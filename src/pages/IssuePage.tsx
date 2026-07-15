@@ -4,24 +4,12 @@ import EditableText from "@/components/EditableText/EditableText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { priorityColors, statusLabels } from "@/lib/issue-constants";
 import { issueSchema } from "@/lib/issue-schema";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
-
-const priorityColors = {
-  low: "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  medium: "bg-yellow-500/10 text-yellow-700 border-yellow-500/20",
-  high: "bg-orange-500/10 text-orange-700 border-orange-500/20",
-};
-
-const statusLabels = {
-  backlog: "Backlog",
-  in_progress: "In Progress",
-  review: "Review",
-  done: "Done",
-};
 
 const IssuePage = () => {
   const { id } = useParams();
@@ -121,10 +109,7 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Priority
             </p>
-            <Badge
-              className={priorityColors[issue.priority] ?? ""}
-              variant="outline"
-            >
+            <Badge className={priorityColors[issue.priority]} variant="outline">
               {issue.priority}
             </Badge>
           </div>
