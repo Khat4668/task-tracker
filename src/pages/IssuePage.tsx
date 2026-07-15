@@ -4,7 +4,11 @@ import EditableText from "@/components/EditableText/EditableText";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { priorityColors, statusLabels } from "@/lib/issue-constants";
+import {
+  priorityColors,
+  priorityLabels,
+  statusLabels,
+} from "@/lib/issue-constants";
 import { issueSchema } from "@/lib/issue-schema";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
@@ -110,7 +114,7 @@ const IssuePage = () => {
               Priority
             </p>
             <Badge className={priorityColors[issue.priority]} variant="outline">
-              {issue.priority}
+              {priorityLabels[issue.priority]}
             </Badge>
           </div>
 

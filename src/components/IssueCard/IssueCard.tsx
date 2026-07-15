@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import { priorityColors, priorityLabels } from "@/lib/issue-constants";
 import type { Issue } from "@/types";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { memo } from "react";
@@ -28,10 +29,14 @@ const IssueCard = memo(({ issue, index }: Props) => {
       <CardContent className="pl-4 pr-4">
         <p className="mb-2">{issue.title}</p>
         <div className="flex gap-2 mb-2">
-          <Badge>{issue.priority}</Badge>
+          <Badge className={priorityColors[issue.priority]} variant="outline">
+            {priorityLabels[issue.priority]}
+          </Badge>
           {issue.tag && <Badge>{issue.tag}</Badge>}
         </div>
-        <p className="text-xs">Created {issue.created_at}</p>
+        <p className="text-xs">
+          Created {new Date(issue.created_at).toLocaleDateString("en-US")}
+        </p>
       </CardContent>
     </Card>
   );
