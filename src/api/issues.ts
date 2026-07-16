@@ -9,6 +9,11 @@ export type UpdateIssueParams = { id: string } & Partial<
   >
 >;
 
+export type CreateIssueParams = Omit<IssueFormData, "tag" | "description"> & {
+  tag: string | null;
+  description: string | null;
+};
+
 export const getIssues = async (): Promise<Issue[]> => {
   const { data, error } = await supabase
     .from("issues")
@@ -19,7 +24,7 @@ export const getIssues = async (): Promise<Issue[]> => {
   return data;
 };
 
-export const createIssue = async (issue: IssueFormData) => {
+export const createIssue = async (issue: CreateIssueParams) => {
   const { data: maxData } = await supabase
     .from("issues")
     .select("position")

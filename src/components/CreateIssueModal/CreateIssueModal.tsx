@@ -42,12 +42,12 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
   const [createIssue] = useCreateIssueMutation();
 
   const onSubmit = async (data: IssueFormData) => {
-    try {
-      await createIssue(data).unwrap();
-      setIsOpen(false);
-    } catch (error) {
-      console.error("Failed to create issue:", error);
-    }
+    await createIssue({
+      ...data,
+      tag: data.tag || null,
+      description: data.description || null,
+    }).unwrap();
+    setIsOpen(false);
   };
 
   return (
