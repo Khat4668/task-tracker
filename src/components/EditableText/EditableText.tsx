@@ -6,7 +6,7 @@ type Props = {
   value: string;
   onSave: (value: string) => void;
   className: string;
-  validate: (value: string) => string | null;
+  validate?: (value: string) => string | null;
   placeholder: string;
 };
 
@@ -42,7 +42,7 @@ const EditableText = ({
   };
 
   const handleSave = () => {
-    const error = validate(draft);
+    const error = validate?.(draft) ?? null;
 
     if (error) {
       toast.error(error, {
@@ -74,7 +74,9 @@ const EditableText = ({
   } else {
     return (
       <div className={className} onClick={startEditing}>
-        {value}
+        {value || (
+          <span className="text-muted-foreground italic">{placeholder}</span>
+        )}
       </div>
     );
   }

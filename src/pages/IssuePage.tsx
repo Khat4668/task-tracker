@@ -1,19 +1,32 @@
 import type { UpdateIssueParams } from "@/api/issues";
 import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
 import EditableText from "@/components/EditableText/EditableText";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
 import {
+  priorities,
   priorityColors,
   priorityLabels,
   statusLabels,
+  statuses,
 } from "@/lib/issue-constants";
 import { issueSchema } from "@/lib/issue-schema";
+import { cn } from "@/lib/utils";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
+import type { Priority, Status } from "@/types";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
+
+const triggerClass =
+  "inline-flex w-fit items-center gap-1 rounded-4xl border border-border px-2 py-1 text-sm text-foreground transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:border-ring";
 
 const IssuePage = () => {
   const { id } = useParams();
@@ -106,28 +119,78 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Status
             </p>
-            <Badge variant="outline">{statusLabels[issue.status]}</Badge>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={cn(triggerClass, "hover:bg-muted")}
+              >
+                {statusLabels[issue.status]}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-32">
+                <DropdownMenuRadioGroup
+                  value={issue.status}
+                  onValueChange={(status) =>
+                    handleUpdateIssue({
+                      id: issue.id,
+                      status: status as Status,
+                    })
+                  }
+                >
+                  {statuses.map((status) => (
+                    <DropdownMenuRadioItem key={status} value={status}>
+                      {statusLabels[status]}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
           <div>
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Priority
             </p>
-            <Badge className={priorityColors[issue.priority]} variant="outline">
-              {priorityLabels[issue.priority]}
-            </Badge>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                className={cn(triggerClass, priorityColors[issue.priority])}
+              >
+                {priorityLabels[issue.priority]}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-32">
+                <DropdownMenuRadioGroup
+                  value={issue.priority}
+                  onValueChange={(priority) =>
+                    handleUpdateIssue({
+                      id: issue.id,
+                      priority: priority as Priority,
+                    })
+                  }
+                >
+                  {priorities.map((priority) => (
+                    <DropdownMenuRadioItem key={priority} value={priority}>
+                      {priorityLabels[priority]}
+                    </DropdownMenuRadioItem>
+                  ))}
+                </DropdownMenuRadioGroup>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
-          {issue.tag && (
-            <div>
-              <p className="mb-1.5 text-xs font-medium text-muted-foreground">
-                Tag
-              </p>
-              <span className="inline-flex items-center gap-1 text-sm">
-                <TagIcon className="h-3.5 w-3.5" /> {issue.tag}
-              </span>
+          <div>
+            <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+              Tag
+            </p>
+            <div className="inline-flex items-center gap-1">
+              <TagIcon className="h-3.5 w-3.5" />
+              <EditableText
+                value={issue.tag ?? ""}
+                onSave={(tag) =>
+                  handleUpdateIssue({ id: issue.id, tag: tag || null })
+                }
+                className={"text-sm"}
+                placeholder={"Add tag"}
+              />
             </div>
-          )}
+          </div>
 
           <div>
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
