@@ -1,5 +1,6 @@
+import type { Status } from "@/lib/issue-constants";
 import { useUpdateIssueMutation } from "@/store/issuesApi";
-import type { Issue, Status } from "@/types";
+import type { Issue } from "@/types";
 import { move } from "@dnd-kit/helpers";
 import type { DragEndEvent, DragOverEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";

@@ -9,6 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import type { Priority } from "@/lib/issue-constants";
 import { priorities, priorityLabels } from "@/lib/issue-constants";
 import {
   resetFilters,
@@ -17,7 +18,6 @@ import {
   setTitle,
 } from "@/store/filtersSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import type { Priority } from "@/types";
 
 const FilterBar = () => {
   const filters = useAppSelector((state) => state.filters);

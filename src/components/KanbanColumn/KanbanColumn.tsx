@@ -1,6 +1,7 @@
 import IssueCard from "@/components/IssueCard/IssueCard";
+import type { Status } from "@/lib/issue-constants";
 import { statusLabels } from "@/lib/issue-constants";
-import type { Issue, Status } from "@/types";
+import type { Issue } from "@/types";
 import { CollisionPriority } from "@dnd-kit/abstract";
 import { useDroppable } from "@dnd-kit/react";
 

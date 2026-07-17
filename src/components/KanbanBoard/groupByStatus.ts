@@ -1,4 +1,5 @@
-import type { Issue, Status } from "@/types";
+import type { Status } from "@/lib/issue-constants";
+import type { Issue } from "@/types";
 
 export const groupByStatus = (issues: Issue[]): Record<Status, Issue[]> => {
   const initial: Record<Status, Issue[]> = {

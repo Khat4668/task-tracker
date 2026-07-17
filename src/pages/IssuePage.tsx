@@ -10,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Separator } from "@/components/ui/separator";
+import type { Priority, Status } from "@/lib/issue-constants";
 import {
   priorities,
   priorityColors,
@@ -20,7 +21,6 @@ import {
 import { issueSchema } from "@/lib/issue-schema";
 import { cn } from "@/lib/utils";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
-import type { Priority, Status } from "@/types";
 import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";

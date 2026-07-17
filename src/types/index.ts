@@ -1,5 +1,4 @@
-export type Status = "backlog" | "in_progress" | "review" | "done";
-export type Priority = "low" | "medium" | "high";
+import type { Priority, Status } from "@/lib/issue-constants";
 
 export type Issue = {
   id: string;
