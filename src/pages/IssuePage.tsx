@@ -99,7 +99,9 @@ const IssuePage = () => {
             value={issue.title}
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
-            className={"mt-1 text-2xl font-semibold tracking-tight"}
+            className={
+              "mt-1 text-2xl font-semibold tracking-tight block w-full"
+            }
             placeholder={"Issue title"}
           />
 
@@ -180,7 +182,7 @@ const IssuePage = () => {
               Tag
             </p>
             <div className="inline-flex items-center gap-1">
-              <TagIcon className="h-3.5 w-3.5" />
+              <TagIcon className="h-3.5 w-3.5 shrink-0" />
               <EditableText
                 value={issue.tag ?? ""}
                 onSave={(tag) =>

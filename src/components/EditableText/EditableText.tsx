@@ -58,10 +58,7 @@ const EditableText = ({
   if (isEditing) {
     return (
       <input
-        className={cn(
-          className,
-          "block w-full bg-transparent focus:outline-none",
-        )}
+        className={cn(className, "bg-transparent focus:outline-none")}
         type="text"
         value={draft}
         placeholder={placeholder}
