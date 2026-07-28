@@ -1,5 +1,6 @@
+import { useInlineEdit } from "@/hooks/useInlineEdit";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { type KeyboardEvent } from "react";
 import { toast } from "sonner";
 
 type Props = {
@@ -17,42 +18,28 @@ const EditableText = ({
   validate,
   placeholder,
 }: Props) => {
-  const [isEditing, setIsEditing] = useState<boolean>(false);
-  const [draft, setDraft] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const {
+    isEditing,
+    ref,
+    draft,
+    setDraft,
+    handleSave,
+    handleCancel,
+    startEditing,
+  } = useInlineEdit<HTMLInputElement>({ value, onSave, validate });
 
-  useEffect(() => {
-    if (isEditing) {
-      inputRef.current?.focus();
-    }
-  }, [isEditing]);
-
-  const startEditing = () => {
-    setDraft(value);
-    setIsEditing(true);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent) => {
-    if (event.key === "Escape") handleCancel();
-    if (event.key === "Enter") handleSave();
-  };
-
-  const handleCancel = () => {
-    setIsEditing(false);
-  };
-
-  const handleSave = () => {
-    const error = validate?.(draft) ?? null;
-
+  const handleSaveWithToast = () => {
+    const error = handleSave();
     if (error) {
       toast.error(error, {
         description: "Reverted the title to its previous value",
       });
-    } else if (draft !== value) {
-      onSave(draft);
     }
+  };
 
-    setIsEditing(false);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === "Escape") handleCancel();
+    if (event.key === "Enter") handleSaveWithToast();
   };
 
   if (isEditing) {
@@ -64,8 +51,8 @@ const EditableText = ({
         placeholder={placeholder}
         onChange={(event) => setDraft(event.target.value)}
         onKeyDown={handleKeyDown}
-        onBlur={handleSave}
-        ref={inputRef}
+        onBlur={handleSaveWithToast}
+        ref={ref}
       />
     );
   } else {
