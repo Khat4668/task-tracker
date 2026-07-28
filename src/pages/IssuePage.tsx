@@ -1,5 +1,6 @@
 import type { UpdateIssueParams } from "@/api/issues";
 import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
+import EditableMultilineText from "@/components/EditableMultilineText/EditableMultilineText";
 import EditableText from "@/components/EditableText/EditableText";
 import { Button } from "@/components/ui/button";
 import {
@@ -107,13 +108,17 @@ const IssuePage = () => {
 
           <Separator className="my-6" />
 
-          <div className="text-sm leading-relaxed text-foreground/80">
-            {issue.description || (
-              <span className="italic text-muted-foreground">
-                No description added
-              </span>
-            )}
-          </div>
+          <EditableMultilineText
+            value={issue.description ?? ""}
+            onSave={(description) =>
+              handleUpdateIssue({
+                id: issue.id,
+                description: description || null,
+              })
+            }
+            className={"text-sm leading-relaxed text-foreground/80 w-full"}
+            placeholder={"Add description..."}
+          />
         </div>
 
         <div className="space-y-5 border-t pt-5 md:border-t-0 md:border-l md:pl-6 md:pt-0">

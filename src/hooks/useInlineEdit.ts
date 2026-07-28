@@ -6,7 +6,9 @@ type Params = {
   validate?: (value: string) => string | null;
 };
 
-export const useInlineEdit = <T extends HTMLElement>({
+export const useInlineEdit = <
+  T extends HTMLInputElement | HTMLTextAreaElement,
+>({
   value,
   onSave,
   validate,
@@ -17,7 +19,12 @@ export const useInlineEdit = <T extends HTMLElement>({
 
   useEffect(() => {
     if (isEditing) {
-      ref.current?.focus();
+      const element = ref.current;
+      if (!element) return;
+      const end = element.value.length;
+
+      element.focus();
+      element.setSelectionRange(end, end);
     }
   }, [isEditing]);
 
