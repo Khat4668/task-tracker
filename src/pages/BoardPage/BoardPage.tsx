@@ -8,6 +8,7 @@ import { useAppSelector } from "@/store/hooks";
 import { useGetIssuesQuery } from "@/store/issuesApi";
 import { FilterX, LayoutGrid, LogOut } from "lucide-react";
 import { useState } from "react";
+import { filterIssues } from "./filterIssues";
 
 const BoardPage = () => {
   const { data, error, isLoading } = useGetIssuesQuery();
@@ -26,18 +27,7 @@ const BoardPage = () => {
 
   if (!data) return null;
 
-  const normalizedTitle = filters.title.trim().toLowerCase();
-  const normalizedTag = filters.tag.trim().toLowerCase();
-
-  const filteredIssues = data.filter((issue) => {
-    const matchesTitle = issue.title.toLowerCase().includes(normalizedTitle);
-    const matchesPriority =
-      filters.priority === "" || issue.priority === filters.priority;
-    const matchesTag =
-      normalizedTag === "" || issue.tag?.toLowerCase().includes(normalizedTag);
-
-    return matchesTitle && matchesPriority && matchesTag;
-  });
+  const filteredIssues = filterIssues(data, filters);
 
   const renderContent = () => {
     if (data.length === 0) {
