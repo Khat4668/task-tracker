@@ -18,6 +18,7 @@ import {
   setTitle,
 } from "@/store/filtersSlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { Search } from "lucide-react";
 
 const FilterBar = () => {
   const filters = useAppSelector((state) => state.filters);
@@ -25,12 +26,14 @@ const FilterBar = () => {
 
   return (
     <div className="flex gap-3 mb-4">
-      <div className="w-full max-w-2xs">
+      <div className="w-full max-w-2xs relative">
         <Input
           value={filters.title}
           onChange={(event) => dispatch(setTitle(event.target.value))}
           placeholder="Search issue"
+          className="pl-7"
         />
+        <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 left-2 pointer-events-none text-muted-foreground" />
       </div>
       <div className="w-full max-w-2xs">
         <Select
