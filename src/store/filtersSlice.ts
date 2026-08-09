@@ -2,9 +2,9 @@ import type { Priority } from "@/lib/issue-constants";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 export type FiltersState = {
+  title: string;
   priority: Priority | "";
   tag: string;
-  title: string;
 };
 
 const initialState: FiltersState = {
@@ -13,8 +13,8 @@ const initialState: FiltersState = {
   tag: "",
 };
 
-export const FiltersSlice = createSlice({
-  name: "filter",
+export const filtersSlice = createSlice({
+  name: "filters",
   initialState,
   reducers: {
     setPriority: (state, action: PayloadAction<Priority | "">) => {
@@ -31,5 +31,5 @@ export const FiltersSlice = createSlice({
 });
 
 export const { setPriority, setTag, setTitle, resetFilters } =
-  FiltersSlice.actions;
-export default FiltersSlice.reducer;
+  filtersSlice.actions;
+export default filtersSlice.reducer;
