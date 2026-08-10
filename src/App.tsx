@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import AppLayout from "@/components/AppLayout/AppLayout";
 import ProtectedRoute from "@/components/ProtectedRoute/ProtectedRoute";
 import { Toaster } from "@/components/ui/sonner";
 import BoardPage from "@/pages/BoardPage/BoardPage";
@@ -13,21 +14,15 @@ const App = () => {
         <Route path="/" element={<Navigate to="/board" replace />} />
         <Route path="/login" element={<LoginPage />} />
         <Route
-          path="/board"
           element={
             <ProtectedRoute>
-              <BoardPage />
+              <AppLayout />
             </ProtectedRoute>
           }
-        />
-        <Route
-          path="/issues/:id"
-          element={
-            <ProtectedRoute>
-              <IssuePage />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/board" element={<BoardPage />} />
+          <Route path="/issues/:id" element={<IssuePage />} />
+        </Route>
       </Routes>
 
       <Toaster />
