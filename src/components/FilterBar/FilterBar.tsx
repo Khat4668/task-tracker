@@ -23,9 +23,10 @@ import { Search } from "lucide-react";
 const FilterBar = () => {
   const filters = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
+  console.log(filters);
 
   return (
-    <div className="flex gap-3 mb-4">
+    <div className="flex gap-3">
       <div className="w-full max-w-2xs relative">
         <Input
           value={filters.title}
@@ -62,9 +63,9 @@ const FilterBar = () => {
           placeholder="Search tag"
         />
       </div>
-      <div className="w-full max-w-2xs">
-        <Button onClick={() => dispatch(resetFilters())}>Clear filter</Button>
-      </div>
+      <Button variant="outline" onClick={() => dispatch(resetFilters())}>
+        Clear filter
+      </Button>
     </div>
   );
 };

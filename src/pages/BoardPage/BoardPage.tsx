@@ -54,14 +54,12 @@ const BoardPage = () => {
 
   return (
     <div className="p-8 h-full">
-      <Button
-        variant="default"
-        className="mb-4"
-        onClick={() => setIsOpen(true)}
-      >
-        Add Issue
-      </Button>
-      <FilterBar />
+      <div className="flex justify-between mb-8">
+        <FilterBar />
+        <Button variant="default" onClick={() => setIsOpen(true)}>
+          Add Issue
+        </Button>
+      </div>
       {renderContent()}
       <CreateIssueModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
