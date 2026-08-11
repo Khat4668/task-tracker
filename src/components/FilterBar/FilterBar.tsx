@@ -23,7 +23,8 @@ import { Search } from "lucide-react";
 const FilterBar = () => {
   const filters = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
-  console.log(filters);
+  const hasActiveFilters =
+    filters.title !== "" || filters.priority !== "" || filters.tag !== "";
 
   return (
     <div className="flex gap-3">
@@ -63,9 +64,11 @@ const FilterBar = () => {
           placeholder="Search tag"
         />
       </div>
-      <Button variant="outline" onClick={() => dispatch(resetFilters())}>
-        Clear filter
-      </Button>
+      {hasActiveFilters && (
+        <Button variant="outline" onClick={() => dispatch(resetFilters())}>
+          Clear filter
+        </Button>
+      )}
     </div>
   );
 };
