@@ -19,13 +19,16 @@ const KanbanColumn = ({ status, issues }: Props) => {
   });
 
   return (
-    <div ref={ref} className="bg-[#0f1010] p-4 rounded-[14px] flex-1 h-full">
-      <div className="flex gap-2 items-center mb-4">
+    <div
+      ref={ref}
+      className="bg-[#0f1010] p-4 rounded-[14px] flex-1 flex flex-col min-h-0"
+    >
+      <div className="flex gap-2 items-center mb-4 shrink-0">
         <div className="text-base">{statusLabels[status]}</div>
         <div className="text-xs text-gray-400">{issues.length}</div>
       </div>
 
-      <div className="grid gap-4">
+      <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto *:shrink-0 pr-2 -mr-2">
         {issues.map((issue, index) => {
           return <IssueCard key={issue.id} issue={issue} index={index} />;
         })}

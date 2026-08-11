@@ -53,8 +53,8 @@ const BoardPage = () => {
   };
 
   return (
-    <div className="p-8 h-full">
-      <div className="flex justify-between mb-8">
+    <div className="p-8 h-full flex flex-col">
+      <div className="flex justify-between mb-8 shrink-0">
         <FilterBar />
         <Button variant="default" onClick={() => setIsOpen(true)}>
           Add Issue
