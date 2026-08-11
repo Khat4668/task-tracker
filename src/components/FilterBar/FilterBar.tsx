@@ -28,7 +28,7 @@ const FilterBar = () => {
 
   return (
     <div className="flex gap-3">
-      <div className="w-full max-w-2xs relative">
+      <div className="w-48 relative">
         <Input
           value={filters.title}
           onChange={(event) => dispatch(setTitle(event.target.value))}
@@ -37,7 +37,7 @@ const FilterBar = () => {
         />
         <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 left-2 pointer-events-none text-muted-foreground" />
       </div>
-      <div className="w-full max-w-2xs">
+      <div className="w-48">
         <Select
           value={filters.priority}
           onValueChange={(value: Priority) => dispatch(setPriority(value))}
@@ -57,7 +57,7 @@ const FilterBar = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="w-full max-w-2xs">
+      <div className="w-48">
         <Input
           value={filters.tag}
           onChange={(event) => dispatch(setTag(event.target.value))}
