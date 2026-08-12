@@ -5,7 +5,7 @@ import { type KeyboardEvent } from "react";
 type Props = {
   value: string;
   onSave: (value: string) => void;
-  className: string;
+  className?: string;
   placeholder: string;
 };
 
@@ -33,8 +33,8 @@ const EditableMultilineText = ({
     return (
       <textarea
         className={cn(
+          "bg-transparent field-sizing-content resize-none px-2 py-1 rounded-md border border-transparent outline-none placeholder:text-muted-foreground",
           className,
-          "bg-transparent focus:outline-none field-sizing-content resize-none",
         )}
         value={draft}
         placeholder={placeholder}
@@ -42,19 +42,20 @@ const EditableMultilineText = ({
         onKeyDown={handleKeyDown}
         onBlur={handleSave}
         ref={ref}
-        rows={4}
       />
     );
   } else {
     return (
-      <div
-        className={cn(className, "whitespace-pre-wrap")}
+      <button
+        type="button"
+        className={cn(
+          "whitespace-pre-wrap text-left px-2 py-1 rounded-md border border-transparent outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+          className,
+        )}
         onClick={startEditing}
       >
-        {value || (
-          <span className="text-muted-foreground italic">{placeholder}</span>
-        )}
-      </div>
+        {value || <span className="text-muted-foreground">{placeholder}</span>}
+      </button>
     );
   }
 };

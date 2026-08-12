@@ -6,7 +6,7 @@ import { toast } from "sonner";
 type Props = {
   value: string;
   onSave: (value: string) => void;
-  className: string;
+  className?: string;
   validate?: (value: string) => string | null;
   placeholder: string;
 };
@@ -31,9 +31,7 @@ const EditableText = ({
   const handleSaveWithToast = () => {
     const error = handleSave();
     if (error) {
-      toast.error(error, {
-        description: "Reverted the title to its previous value",
-      });
+      toast.error(error);
     }
   };
 
@@ -45,7 +43,10 @@ const EditableText = ({
   if (isEditing) {
     return (
       <input
-        className={cn(className, "bg-transparent focus:outline-none")}
+        className={cn(
+          "px-2 py-1 rounded-md border border-transparent bg-transparent outline-none placeholder:text-muted-foreground",
+          className,
+        )}
         type="text"
         value={draft}
         placeholder={placeholder}
@@ -57,11 +58,16 @@ const EditableText = ({
     );
   } else {
     return (
-      <div className={className} onClick={startEditing}>
-        {value || (
-          <span className="text-muted-foreground italic">{placeholder}</span>
+      <button
+        type="button"
+        className={cn(
+          "text-left px-2 py-1 rounded-md border border-transparent outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+          className,
         )}
-      </div>
+        onClick={startEditing}
+      >
+        {value || <span className="text-muted-foreground">{placeholder}</span>}
+      </button>
     );
   }
 };

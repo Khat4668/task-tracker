@@ -101,7 +101,7 @@ const IssuePage = () => {
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
             className={
-              "mt-1 text-2xl font-semibold tracking-tight block w-full"
+              "mt-1 -ml-2 text-2xl font-semibold tracking-tight w-full"
             }
             placeholder={"Issue title"}
           />
@@ -116,7 +116,9 @@ const IssuePage = () => {
                 description: description || null,
               })
             }
-            className={"text-sm leading-relaxed text-foreground/80 w-full"}
+            className={
+              "text-sm leading-relaxed text-foreground/80 w-full -ml-2"
+            }
             placeholder={"Add description..."}
           />
         </div>
