@@ -17,8 +17,8 @@ const Header = () => {
 
         <Button
           variant="ghost"
-          className="pr-0"
           size="sm"
+          className="-mr-2.5"
           onClick={() => supabase.auth.signOut()}
         >
           <LogOut className="w-4 h-4" />
