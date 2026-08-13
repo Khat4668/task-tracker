@@ -27,7 +27,7 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
 const triggerClass =
-  "inline-flex w-fit items-center gap-1 rounded-4xl border border-border px-2 py-1 text-sm text-foreground transition-all duration-300 ease-in-out focus-visible:outline-none focus-visible:border-ring";
+  "-ml-2 inline-flex w-fit items-center gap-1 rounded-md border border-transparent px-2 py-1 text-sm text-foreground transition-all hover:bg-muted/50 outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50";
 
 const IssuePage = () => {
   const { id } = useParams();
@@ -70,7 +70,7 @@ const IssuePage = () => {
 
   if (!issue) {
     return (
-      <div className="flex h-screen flex-col items-center justify-center gap-3">
+      <div className="flex flex-1 flex-col items-center justify-center gap-3">
         <p className="text-sm text-muted-foreground">Issue not found</p>
         <Button variant="outline" size="sm" onClick={() => navigate("/board")}>
           <ArrowLeft className="mr-2 h-4 w-4" /> Back to board
@@ -84,7 +84,7 @@ const IssuePage = () => {
       <Button
         variant="ghost"
         size="sm"
-        className="mb-6 -ml-2 text-muted-foreground"
+        className="mb-6 -ml-2.5 text-muted-foreground"
         onClick={() => navigate("/board")}
       >
         <ArrowLeft className="mr-2 h-4 w-4" /> Board
@@ -101,12 +101,10 @@ const IssuePage = () => {
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
             className={
-              "mt-1 -ml-2 text-2xl font-semibold tracking-tight w-full"
+              "mt-1 mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full"
             }
             placeholder={"Issue title"}
           />
-
-          <Separator className="my-6" />
 
           <EditableMultilineText
             value={issue.description ?? ""}
@@ -123,15 +121,13 @@ const IssuePage = () => {
           />
         </div>
 
-        <div className="space-y-5 border-t pt-5 md:border-t-0 md:border-l md:pl-6 md:pt-0">
+        <div className="space-y-5 border-t pt-5 md:border-t-0 md:pl-6 md:pt-0">
           <div>
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Status
             </p>
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className={cn(triggerClass, "hover:bg-muted")}
-              >
+              <DropdownMenuTrigger className={triggerClass}>
                 {statusLabels[issue.status]}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-32">
@@ -160,7 +156,11 @@ const IssuePage = () => {
             </p>
             <DropdownMenu>
               <DropdownMenuTrigger
-                className={cn(triggerClass, priorityColors[issue.priority])}
+                className={cn(
+                  triggerClass,
+                  priorityColors[issue.priority],
+                  "border-transparent bg-transparent",
+                )}
               >
                 {priorityLabels[issue.priority]}
               </DropdownMenuTrigger>
@@ -188,14 +188,14 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Tag
             </p>
-            <div className="inline-flex items-center gap-1">
+            <div className="-ml-2 inline-flex items-center gap-1 px-2 py-1">
               <TagIcon className="h-3.5 w-3.5 shrink-0" />
               <EditableText
                 value={issue.tag ?? ""}
                 onSave={(tag) =>
                   handleUpdateIssue({ id: issue.id, tag: tag || null })
                 }
-                className={"text-sm"}
+                className={"text-sm px-0 py-0"}
                 placeholder={"Add tag"}
               />
             </div>
@@ -205,7 +205,7 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Created
             </p>
-            <span className="inline-flex items-center gap-1 text-sm text-foreground/80">
+            <span className="inline-flex items-center gap-1 text-sm text-foreground">
               <Calendar className="h-3.5 w-3.5" />
               {new Date(issue.created_at).toLocaleDateString("en-US")}
             </span>
@@ -213,7 +213,9 @@ const IssuePage = () => {
 
           <Separator />
 
-          <DeleteIssueDialog issueId={issue.id} />
+          <div className="-ml-2.5">
+            <DeleteIssueDialog issueId={issue.id} />
+          </div>
         </div>
       </div>
     </div>
