@@ -23,7 +23,7 @@ const IssueCard = memo(({ issue, index }: Props) => {
   return (
     <Card
       ref={ref}
-      className="w-full"
+      className="w-full min-w-0 outline-none focus-visible:ring-ring"
       onClick={() => navigate(`/issues/${issue.id}`)}
     >
       <CardContent className="px-4">
