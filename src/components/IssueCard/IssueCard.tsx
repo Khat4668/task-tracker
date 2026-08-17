@@ -26,8 +26,8 @@ const IssueCard = memo(({ issue, index }: Props) => {
       className="w-full"
       onClick={() => navigate(`/issues/${issue.id}`)}
     >
-      <CardContent className="pl-4 pr-4">
-        <p className="mb-2">{issue.title}</p>
+      <CardContent className="px-4">
+        <p className="mb-2 wrap-anywhere">{issue.title}</p>
         <div className="flex gap-2 mb-2">
           <Badge className={priorityColors[issue.priority]} variant="outline">
             {priorityLabels[issue.priority]}
