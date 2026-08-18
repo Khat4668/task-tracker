@@ -2,6 +2,8 @@ import type { UpdateIssueParams } from "@/api/issues";
 import DeleteIssueDialog from "@/components/DeleteIssueDialog/DeleteIssueDialog";
 import EditableMultilineText from "@/components/EditableMultilineText/EditableMultilineText";
 import EditableText from "@/components/EditableText/EditableText";
+import EmptyState from "@/components/EmptyState/EmptyState";
+import IssueDetailSkeleton from "@/components/IssueDetailSkeleton/IssueDetailSkeleton";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -22,7 +24,13 @@ import {
 import { issueSchema } from "@/lib/issue-schema";
 import { cn } from "@/lib/utils";
 import { useGetIssuesQuery, useUpdateIssueMutation } from "@/store/issuesApi";
-import { ArrowLeft, Calendar, Tag as TagIcon } from "lucide-react";
+import {
+  AlertCircle,
+  ArrowLeft,
+  Calendar,
+  SearchX,
+  Tag as TagIcon,
+} from "lucide-react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
@@ -33,10 +41,11 @@ const IssuePage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { issue, isLoading } = useGetIssuesQuery(undefined, {
-    selectFromResult: ({ data, isLoading }) => ({
+  const { issue, isLoading, error } = useGetIssuesQuery(undefined, {
+    selectFromResult: ({ data, isLoading, error }) => ({
       issue: data?.find((i) => i.id === id),
       isLoading,
+      error,
     }),
   });
 
@@ -62,34 +71,38 @@ const IssuePage = () => {
     return result.error.issues[0].message;
   };
 
-  if (isLoading) {
+  const renderContent = () => {
+    if (isLoading) return <IssueDetailSkeleton />;
+
+    if (error && !issue) {
+      return (
+        <div className="flex flex-1 items-center justify-center">
+          <EmptyState
+            icon={<AlertCircle className="w-6 h-6" />}
+            title="Couldn't load issue"
+            description="Something went wrong. Check your connection and try again."
+            actionLabel="Back to board"
+            onAction={() => navigate("/board")}
+          />
+        </div>
+      );
+    }
+
+    if (!issue) {
+      return (
+        <div className="flex flex-1 items-center justify-center">
+          <EmptyState
+            icon={<SearchX className="w-6 h-6" />}
+            title="Issue not found"
+            description="This issue may have been deleted."
+            actionLabel="Back to board"
+            onAction={() => navigate("/board")}
+          />
+        </div>
+      );
+    }
+
     return (
-      <div className="p-8 text-sm text-muted-foreground">Loading issue...</div>
-    );
-  }
-
-  if (!issue) {
-    return (
-      <div className="flex flex-1 flex-col items-center justify-center gap-3">
-        <p className="text-sm text-muted-foreground">Issue not found</p>
-        <Button variant="outline" size="sm" onClick={() => navigate("/board")}>
-          <ArrowLeft className="mr-2 h-4 w-4" /> Back to board
-        </Button>
-      </div>
-    );
-  }
-
-  return (
-    <div className="mx-auto max-w-5xl px-6 py-8">
-      <Button
-        variant="ghost"
-        size="sm"
-        className="mb-6 -ml-2.5 text-muted-foreground"
-        onClick={() => navigate("/board")}
-      >
-        <ArrowLeft className="mr-2 h-4 w-4" /> Board
-      </Button>
-
       <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_260px]">
         <div>
           <span className="font-mono text-xs text-muted-foreground">
@@ -218,6 +231,21 @@ const IssuePage = () => {
           </div>
         </div>
       </div>
+    );
+  };
+
+  return (
+    <div className="mx-auto flex h-full max-w-6xl flex-col px-8 py-8">
+      <Button
+        variant="ghost"
+        size="sm"
+        className="mb-6 -ml-2.5 self-start text-muted-foreground"
+        onClick={() => navigate("/board")}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" /> Board
+      </Button>
+
+      {renderContent()}
     </div>
   );
 };
