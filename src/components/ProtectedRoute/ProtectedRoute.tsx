@@ -1,11 +1,11 @@
 import { useGetSessionQuery } from "@/store/authApi";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { data: session, isLoading } = useGetSessionQuery();
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return null;
   }
 
   if (!session) {
