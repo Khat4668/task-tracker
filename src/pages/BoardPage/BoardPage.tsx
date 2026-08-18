@@ -22,13 +22,15 @@ const BoardPage = () => {
 
     if (error && !data) {
       return (
-        <EmptyState
-          icon={<AlertCircle className="w-6 h-6" />}
-          title="Couldn't load issues"
-          description="Something went wrong. Check your connection and try again."
-          actionLabel="Try again"
-          onAction={refetch}
-        />
+        <div className="flex flex-1 items-center justify-center">
+          <EmptyState
+            icon={<AlertCircle className="w-6 h-6" />}
+            title="Couldn't load issues"
+            description="Something went wrong. Check your connection and try again."
+            actionLabel="Try again"
+            onAction={refetch}
+          />
+        </div>
       );
     }
 
@@ -36,13 +38,15 @@ const BoardPage = () => {
 
     if (data.length === 0) {
       return (
-        <EmptyState
-          icon={<LayoutGrid className="w-6 h-6" />}
-          title="Create your first issue"
-          description="Issues you create will show up on the board, grouped by status."
-          actionLabel="New issue"
-          onAction={() => setIsOpen(true)}
-        />
+        <div className="flex flex-1 items-center justify-center">
+          <EmptyState
+            icon={<LayoutGrid className="w-6 h-6" />}
+            title="Create your first issue"
+            description="Issues you create will show up on the board, grouped by status."
+            actionLabel="New issue"
+            onAction={() => setIsOpen(true)}
+          />
+        </div>
       );
     }
 
@@ -50,11 +54,13 @@ const BoardPage = () => {
 
     if (filteredIssues.length === 0) {
       return (
-        <EmptyState
-          icon={<FilterX className="w-6 h-6" />}
-          title="No issues match your filters"
-          description="Adjust the filters or clear them to see everything."
-        />
+        <div className="flex flex-1 items-center justify-center">
+          <EmptyState
+            icon={<FilterX className="w-6 h-6" />}
+            title="No issues match your filters"
+            description="Adjust the filters or clear them to see everything."
+          />
+        </div>
       );
     }
 

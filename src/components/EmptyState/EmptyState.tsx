@@ -17,7 +17,7 @@ const EmptyState = ({
   onAction,
 }: Props) => {
   return (
-    <div className="flex flex-col items-center justify-center text-center min-h-64 mt-16">
+    <div className="flex flex-col items-center justify-center text-center">
       <div className="w-14 h-14 rounded-xl border border-dotted border-foreground/40 flex items-center justify-center mb-4">
         {icon}
       </div>
