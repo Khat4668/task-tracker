@@ -1,9 +1,15 @@
 import { supabase } from "@/api/supabase";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useGetSessionQuery } from "@/store/authApi";
 import { LayoutGrid, LogOut } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const Header = () => {
+  const { data: session } = useGetSessionQuery();
+
+  const isDemo = session?.user.is_anonymous === true;
+
   return (
     <header className="h-14 shrink-0 border-b border-border">
       <div className="h-full px-8 flex items-center justify-between">
@@ -14,16 +20,18 @@ const Header = () => {
           <LayoutGrid className="w-4 h-4" />
           <span>Task Tracker</span>
         </Link>
-
-        <Button
-          variant="ghost"
-          size="sm"
-          className="-mr-2.5"
-          onClick={() => supabase.auth.signOut()}
-        >
-          <LogOut className="w-4 h-4" />
-          Sign out
-        </Button>
+        <div className="flex items-center gap-2">
+          {isDemo && <Badge variant="secondary">Demo</Badge>}
+          <Button
+            variant="ghost"
+            size="sm"
+            className="-mr-2.5"
+            onClick={() => supabase.auth.signOut()}
+          >
+            <LogOut className="w-4 h-4" />
+            Sign out
+          </Button>
+        </div>
       </div>
     </header>
   );
