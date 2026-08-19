@@ -8,11 +8,24 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { useGetSessionQuery } from "@/store/authApi";
+import { Navigate } from "react-router";
 
 const LoginPage = () => {
+  const { data: session, isLoading } = useGetSessionQuery();
+
+  if (isLoading) {
+    return null;
+  }
+
+  if (session) {
+    return <Navigate to="/" replace />;
+  }
+
   const handleLogin = () => {
     supabase.auth.signInWithOAuth({ provider: "google" });
   };
+
   return (
     <div className="flex min-h-screen items-center justify-center px-4">
       <Card className="w-full max-w-sm">
