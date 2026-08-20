@@ -36,7 +36,7 @@ const DeleteIssueDialog = ({ issueId }: { issueId: string }) => {
         <Button
           variant="ghost"
           size="sm"
-          className="text-destructive hover:text-destructive"
+          className="h-auto py-1 text-sm text-destructive hover:text-destructive"
         >
           <Trash2 className="mr-2 h-4 w-4" /> Delete issue
         </Button>
