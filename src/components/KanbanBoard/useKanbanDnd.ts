@@ -5,6 +5,7 @@ import { move } from "@dnd-kit/helpers";
 import type { DragEndEvent, DragOverEvent } from "@dnd-kit/react";
 import { isSortable } from "@dnd-kit/react/sortable";
 import { useEffect, useRef, useState } from "react";
+import { toast } from "sonner";
 import { calculatePosition } from "./calculatePosition";
 import { groupByStatus } from "./groupByStatus";
 
@@ -69,6 +70,7 @@ export const useKanbanDnd = (issues: Issue[]) => {
         position,
       }).unwrap();
     } catch (error) {
+      toast.error("Failed to update issue");
       console.error("Failed to update issue:", error);
     }
   };
