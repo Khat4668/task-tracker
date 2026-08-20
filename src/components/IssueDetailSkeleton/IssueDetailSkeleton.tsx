@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 
-const SIDEBAR_FIELDS = ["Status", "Priority", "Tag", "Created"];
+const SIDEBAR_FIELDS = ["Status", "Priority", "Tag"];
 
 const IssueDetailSkeleton = () => {
   return (
@@ -31,13 +31,20 @@ const IssueDetailSkeleton = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               {label}
             </p>
-            <Skeleton className="h-7 w-24" />
+            <Skeleton className="h-7.5 w-24" />
           </div>
         ))}
 
+        <div>
+          <p className="mb-1.5 text-xs font-medium text-muted-foreground">
+            Created
+          </p>
+          <Skeleton className="h-5 w-24" />
+        </div>
+
         <Separator />
 
-        <Skeleton className="h-8 w-32" />
+        <Skeleton className="h-7.5 w-32" />
       </div>
     </div>
   );
