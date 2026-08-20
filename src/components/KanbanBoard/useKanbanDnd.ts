@@ -33,7 +33,10 @@ export const useKanbanDnd = (issues: Issue[]) => {
 
   const onDragEnd = async (event: DragEndEvent) => {
     isDragging.current = false;
-    if (event.canceled) return;
+    if (event.canceled) {
+      setColumns(groupByStatus(issues));
+      return;
+    }
 
     const { source } = event.operation;
     if (!isSortable(source)) return;
