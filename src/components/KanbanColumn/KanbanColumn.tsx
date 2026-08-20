@@ -1,9 +1,10 @@
 import IssueCard from "@/components/IssueCard/IssueCard";
 import type { Status } from "@/lib/issue-constants";
 import { statusLabels } from "@/lib/issue-constants";
+import { cn } from "@/lib/utils";
 import type { Issue } from "@/types";
 import { CollisionPriority } from "@dnd-kit/abstract";
-import { useDroppable } from "@dnd-kit/react";
+import { useDragOperation, useDroppable } from "@dnd-kit/react";
 
 type Props = {
   status: Status;
@@ -18,14 +19,21 @@ const KanbanColumn = ({ status, issues }: Props) => {
     collisionPriority: CollisionPriority.Low,
   });
 
+  const { source } = useDragOperation();
+  const isActive =
+    source != null && issues.some((issue) => issue.id === source.id);
+
   return (
     <div
       ref={ref}
-      className="bg-[#0f1010] p-4 rounded-[14px] flex-1 flex flex-col min-h-0"
+      className={cn(
+        "bg-column p-4 rounded-[14px] flex-1 flex flex-col min-h-0 transition-colors duration-200",
+        isActive && "bg-column-active",
+      )}
     >
       <div className="flex gap-2 items-center mb-4 shrink-0">
         <div className="text-base">{statusLabels[status]}</div>
-        <div className="text-xs text-gray-400">{issues.length}</div>
+        <div className="text-xs text-muted-foreground">{issues.length}</div>
       </div>
 
       <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto *:shrink-0 pr-2 -mr-2 py-px pl-px -ml-px">
@@ -36,4 +44,5 @@ const KanbanColumn = ({ status, issues }: Props) => {
     </div>
   );
 };
+
 export default KanbanColumn;

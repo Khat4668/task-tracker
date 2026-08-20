@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { priorityColors, priorityLabels } from "@/lib/issue-constants";
+import { cn } from "@/lib/utils";
 import type { Issue } from "@/types";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { memo } from "react";
@@ -14,7 +15,7 @@ type Props = {
 const IssueCard = memo(({ issue, index }: Props) => {
   const navigate = useNavigate();
 
-  const { ref } = useSortable({
+  const { ref, isDragging } = useSortable({
     id: issue.id,
     index,
     group: issue.status,
@@ -23,7 +24,11 @@ const IssueCard = memo(({ issue, index }: Props) => {
   return (
     <Card
       ref={ref}
-      className="w-full min-w-0 outline-none focus-visible:ring-ring"
+      className={cn(
+        "w-full min-w-0 cursor-pointer transition-colors hover:bg-surface-raised outline-none focus-visible:ring-ring",
+        isDragging &&
+          "bg-surface-raised border-white/10 shadow-[0_20px_50px_-16px_rgba(0,0,0,1)]",
+      )}
       onClick={() => navigate(`/issues/${issue.id}`)}
     >
       <CardContent className="px-4">
