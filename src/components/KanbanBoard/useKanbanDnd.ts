@@ -51,6 +51,12 @@ export const useKanbanDnd = (issues: Issue[]) => {
 
     const realIndex = destItems.findIndex((issue) => issue.id === source.id);
 
+    const serverIndex = groupByStatus(issues)[destStatus as Status].findIndex(
+      (issue) => issue.id === source.id,
+    );
+
+    if (serverIndex === realIndex) return;
+
     const position = calculatePosition(
       destItems[realIndex - 1]?.position,
       destItems[realIndex + 1]?.position,
