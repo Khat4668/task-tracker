@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import type { Status } from "@/lib/issue-constants";
 import { statuses, statusLabels } from "@/lib/issue-constants";
+import { cn } from "@/lib/utils";
 
 const CARD_COUNTS: Record<Status, number> = {
   backlog: 3,
@@ -23,7 +24,7 @@ const KanbanBoardSkeleton = () => {
         <div
           key={status}
           aria-hidden
-          className="bg-[#0f1010] p-4 rounded-[14px] flex-1 flex flex-col min-h-0"
+          className="bg-column p-4 rounded-[14px] flex-1 flex flex-col min-h-0"
         >
           <div className="flex gap-2 items-center mb-4 shrink-0">
             <div className="text-base">{statusLabels[status]}</div>
@@ -35,9 +36,10 @@ const KanbanBoardSkeleton = () => {
               <Card key={cardIndex} className="w-full min-w-0 shrink-0">
                 <CardContent className="px-4">
                   <Skeleton
-                    className={`h-5 mb-2 ${
-                      TITLE_WIDTHS[cardIndex % TITLE_WIDTHS.length]
-                    }`}
+                    className={cn(
+                      "h-5 mb-2",
+                      TITLE_WIDTHS[cardIndex % TITLE_WIDTHS.length],
+                    )}
                   />
                   <div className="flex gap-2 mb-2">
                     <Skeleton className="h-5 w-16 rounded-md" />
