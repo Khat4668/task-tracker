@@ -12,7 +12,7 @@ const Header = () => {
 
   return (
     <header className="h-14 shrink-0 border-b border-border">
-      <div className="h-full px-8 flex items-center justify-between">
+      <div className="h-full px-4 md:px-8 flex items-center justify-between">
         <Link
           to="/board"
           className="flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity"

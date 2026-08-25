@@ -237,7 +237,7 @@ const IssuePage = () => {
   };
 
   return (
-    <div className="mx-auto flex h-full max-w-6xl flex-col px-8 py-8">
+    <div className="mx-auto flex h-full max-w-6xl flex-col px-4 py-4 md:px-8 md:py-8">
       <Button
         variant="ghost"
         size="sm"
