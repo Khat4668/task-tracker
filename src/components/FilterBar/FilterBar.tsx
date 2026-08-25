@@ -11,8 +11,10 @@ import {
 } from "@/components/ui/select";
 import type { Priority } from "@/lib/issue-constants";
 import { priorities, priorityLabels } from "@/lib/issue-constants";
+import { cn } from "@/lib/utils";
 import {
   resetFilters,
+  selectHasActiveFilters,
   setPriority,
   setTag,
   setTitle,
@@ -20,15 +22,18 @@ import {
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { Search } from "lucide-react";
 
-const FilterBar = () => {
+type Props = {
+  className?: string;
+};
+
+const FilterBar = ({ className }: Props) => {
   const filters = useAppSelector((state) => state.filters);
   const dispatch = useAppDispatch();
-  const hasActiveFilters =
-    filters.title !== "" || filters.priority !== "" || filters.tag !== "";
+  const hasActiveFilters = useAppSelector(selectHasActiveFilters);
 
   return (
-    <div className="flex gap-3">
-      <div className="w-48 relative">
+    <div className={cn("flex flex-col gap-3 md:flex-row", className)}>
+      <div className="w-full md:w-48 relative">
         <Input
           value={filters.title}
           onChange={(event) => dispatch(setTitle(event.target.value))}
@@ -37,7 +42,7 @@ const FilterBar = () => {
         />
         <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 left-2 pointer-events-none text-muted-foreground" />
       </div>
-      <div className="w-48">
+      <div className="w-full md:w-48">
         <Select
           value={filters.priority}
           onValueChange={(value: Priority) => dispatch(setPriority(value))}
@@ -57,7 +62,7 @@ const FilterBar = () => {
           </SelectContent>
         </Select>
       </div>
-      <div className="w-48">
+      <div className="w-full md:w-48">
         <Input
           value={filters.tag}
           onChange={(event) => dispatch(setTag(event.target.value))}
@@ -65,7 +70,11 @@ const FilterBar = () => {
         />
       </div>
       {hasActiveFilters && (
-        <Button variant="outline" onClick={() => dispatch(resetFilters())}>
+        <Button
+          className="w-full md:w-auto"
+          variant="outline"
+          onClick={() => dispatch(resetFilters())}
+        >
           Clear filter
         </Button>
       )}

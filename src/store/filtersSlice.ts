@@ -1,5 +1,6 @@
 import type { Priority } from "@/lib/issue-constants";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { RootState } from ".";
 
 export type FiltersState = {
   title: string;
@@ -12,6 +13,11 @@ const initialState: FiltersState = {
   priority: "",
   tag: "",
 };
+
+export const selectHasActiveFilters = (state: RootState) =>
+  state.filters.title !== "" ||
+  state.filters.priority !== "" ||
+  state.filters.tag !== "";
 
 export const filtersSlice = createSlice({
   name: "filters",

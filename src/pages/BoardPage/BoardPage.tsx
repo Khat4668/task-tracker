@@ -1,6 +1,7 @@
 import CreateIssueModal from "@/components/CreateIssueModal/CreateIssueModal";
 import EmptyState from "@/components/EmptyState/EmptyState";
 import FilterBar from "@/components/FilterBar/FilterBar";
+import FiltersSheet from "@/components/FiltersSheet/FiltersSheet";
 import KanbanBoard from "@/components/KanbanBoard/KanbanBoard";
 import KanbanBoardSkeleton from "@/components/KanbanBoardSkeleton/KanbanBoardSkeleton";
 import { Button } from "@/components/ui/button";
@@ -69,8 +70,9 @@ const BoardPage = () => {
 
   return (
     <div className="p-4 md:p-8 h-full flex flex-col">
-      <div className="flex justify-between mb-8 shrink-0">
-        <FilterBar />
+      <div className="flex justify-between items-center mb-4 md:mb-8 shrink-0 gap-3">
+        <FilterBar className="hidden md:flex" />
+        <FiltersSheet className="md:hidden" />
         <Button
           variant="default"
           disabled={isLoading}
