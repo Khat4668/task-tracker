@@ -36,7 +36,7 @@ const KanbanColumn = ({ status, issues }: Props) => {
         <div className="text-xs text-muted-foreground">{issues.length}</div>
       </div>
 
-      <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto *:shrink-0 pr-2 -mr-2 py-px pl-px -ml-px">
+      <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto *:shrink-0 pr-3 -mr-3 md:pr-2 md:-mr-2 py-px pl-px -ml-px">
         {issues.map((issue, index) => {
           return <IssueCard key={issue.id} issue={issue} index={index} />;
         })}
