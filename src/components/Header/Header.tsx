@@ -28,7 +28,7 @@ const Header = () => {
             className="-mr-2.5"
             onClick={() => supabase.auth.signOut()}
           >
-            <LogOut className="w-4 h-4" />
+            <LogOut />
             Sign out
           </Button>
         </div>

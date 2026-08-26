@@ -1,5 +1,5 @@
 export const GoogleIcon = () => (
-  <svg viewBox="0 0 24 24" className="h-4 w-4">
+  <svg viewBox="0 0 24 24">
     <path
       fill="#4285F4"
       d="M23.52 12.27c0-.82-.07-1.6-.2-2.36H12v4.47h6.47c-.28 1.5-1.13 2.77-2.4 3.62v3h3.87c2.27-2.09 3.58-5.17 3.58-8.73Z"
