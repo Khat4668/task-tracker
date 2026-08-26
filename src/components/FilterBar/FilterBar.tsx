@@ -47,7 +47,7 @@ const FilterBar = ({ className }: Props) => {
           value={filters.priority}
           onValueChange={(value: Priority) => dispatch(setPriority(value))}
         >
-          <SelectTrigger className="w-full">
+          <SelectTrigger className="w-full text-base md:text-sm">
             <SelectValue placeholder="Select priority" />
           </SelectTrigger>
           <SelectContent>

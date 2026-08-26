@@ -34,8 +34,9 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
+// 16px на мобиле: iOS зумит страницу при фокусе в поле меньше 16px
 const fieldClass =
-  "-ml-2 inline-flex w-fit items-center gap-1 rounded-md border border-transparent px-2 py-1 text-sm text-foreground transition-all hover:bg-muted/50";
+  "-ml-2 inline-flex w-fit items-center gap-1 rounded-md border border-transparent px-2 py-1 text-base md:text-sm text-foreground transition-all hover:bg-muted/50";
 
 const triggerClass = `${fieldClass} outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50`;
 
@@ -130,7 +131,7 @@ const IssuePage = () => {
               })
             }
             className={
-              "text-sm leading-relaxed text-foreground/80 w-full -ml-2"
+              "text-base md:text-sm leading-relaxed text-foreground/80 w-full -ml-2"
             }
             placeholder={"Add description..."}
           />
@@ -210,7 +211,7 @@ const IssuePage = () => {
                 onSave={(tag) =>
                   handleUpdateIssue({ id: issue.id, tag: tag || null })
                 }
-                className={"text-sm px-0 py-0 border-0"}
+                className={"text-base md:text-sm px-0 py-0 border-0"}
                 placeholder={"Add tag"}
               />
             </div>
@@ -220,7 +221,7 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Created
             </p>
-            <span className="inline-flex items-center gap-1 text-sm text-foreground">
+            <span className="inline-flex items-center gap-1 text-base md:text-sm text-foreground">
               <Calendar className="h-3.5 w-3.5" />
               {new Date(issue.created_at).toLocaleDateString("en-US")}
             </span>

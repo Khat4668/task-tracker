@@ -84,7 +84,7 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
               defaultValue="backlog"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full text-base md:text-sm">
                     <SelectValue placeholder="Select a status" />
                   </SelectTrigger>
                   <SelectContent>
@@ -108,7 +108,7 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
               defaultValue="low"
               render={({ field }) => (
                 <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
+                  <SelectTrigger className="w-full text-base md:text-sm">
                     <SelectValue placeholder="Select a priority" />
                   </SelectTrigger>
                   <SelectContent>
