@@ -33,7 +33,7 @@ const EditableMultilineText = ({
     return (
       <textarea
         className={cn(
-          "bg-transparent field-sizing-content resize-none px-2 py-1 rounded-md border border-transparent outline-none placeholder:text-muted-foreground",
+          "bg-transparent field-sizing-content resize-none px-2 rounded-md border border-transparent outline-none placeholder:text-muted-foreground",
           className,
         )}
         value={draft}
@@ -49,7 +49,7 @@ const EditableMultilineText = ({
       <button
         type="button"
         className={cn(
-          "whitespace-pre-wrap text-left px-2 py-1 rounded-md border border-transparent outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
+          "whitespace-pre-wrap text-left px-2 rounded-md border border-transparent outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50",
           className,
         )}
         onClick={startEditing}

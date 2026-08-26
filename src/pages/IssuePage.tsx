@@ -105,7 +105,7 @@ const IssuePage = () => {
     }
 
     return (
-      <div className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_260px]">
+      <div className="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-[1fr_260px]">
         <div>
           <span className="font-mono text-xs text-muted-foreground">
             {issue.id.slice(0, 8).toUpperCase()}
@@ -116,7 +116,7 @@ const IssuePage = () => {
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
             className={
-              "mt-1 mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
+              "mt-1 mb-3.5 md:mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
             }
             placeholder={"Issue title"}
           />
@@ -136,7 +136,7 @@ const IssuePage = () => {
           />
         </div>
 
-        <div className="space-y-5 border-t pt-5 md:border-t-0 md:pl-6 md:pt-0">
+        <div className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:pl-6 md:pt-0">
           <div>
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Status
@@ -237,11 +237,11 @@ const IssuePage = () => {
   };
 
   return (
-    <div className="mx-auto flex h-full max-w-6xl flex-col px-4 py-4 md:px-8 md:py-8">
+    <div className="mx-auto min-h-full flex max-w-6xl flex-col px-4 py-4 md:px-8 md:py-8">
       <Button
         variant="ghost"
         size="sm"
-        className="mb-6 -ml-2.5 self-start text-muted-foreground"
+        className="mb-3 md:mb-6 -ml-2.5 self-start text-muted-foreground"
         onClick={() => navigate("/board")}
       >
         <ArrowLeft className="mr-2 h-4 w-4" /> Board
