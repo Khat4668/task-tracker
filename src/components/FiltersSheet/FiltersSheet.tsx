@@ -28,7 +28,7 @@ const FiltersSheet = ({ className }: Props) => {
           aria-label="Filters"
           className={cn("relative", className)}
         >
-          <Filter />
+          <Filter className="w-4 h-4" />
           {hasActiveFilters && (
             <span className="absolute -top-1 -right-1 size-2 rounded-full bg-primary" />
           )}
