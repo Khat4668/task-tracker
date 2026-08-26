@@ -31,7 +31,7 @@ const KanbanBoardSkeleton = () => {
             <Skeleton className="h-4 w-3" />
           </div>
 
-          <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden">
+          <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-hidden py-px px-px -mx-px scrollbar-gutter-stable">
             {Array.from({ length: CARD_COUNTS[status] }).map((_, cardIndex) => (
               <Card key={cardIndex} className="w-full min-w-0 shrink-0">
                 <CardContent className="px-4">
