@@ -116,7 +116,7 @@ const IssuePage = () => {
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
             className={
-              "mt-1 mb-3.5 md:mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
+              "mt-1 mb-0.5 md:mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
             }
             placeholder={"Issue title"}
           />

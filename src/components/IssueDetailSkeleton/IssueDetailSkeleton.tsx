@@ -8,10 +8,10 @@ const IssueDetailSkeleton = () => {
     <div
       role="status"
       aria-label="Loading issue"
-      className="grid grid-cols-1 gap-10 md:grid-cols-[1fr_260px]"
+      className="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-[1fr_260px]"
     >
       <div aria-hidden>
-        <Skeleton className="h-4 w-16" />
+        <Skeleton className="h-4 w-16 mb-6" />
 
         <Skeleton className="mt-1 mb-6 h-10.5 w-3/4" />
 
@@ -24,7 +24,7 @@ const IssueDetailSkeleton = () => {
 
       <div
         aria-hidden
-        className="space-y-5 border-t pt-5 md:border-t-0 md:pl-6 md:pt-0"
+        className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:pl-6 md:pt-0"
       >
         {SIDEBAR_FIELDS.map((label) => (
           <div key={label}>
