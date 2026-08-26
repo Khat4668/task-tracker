@@ -27,7 +27,7 @@ const KanbanColumn = ({ status, issues }: Props) => {
     <div
       ref={ref}
       className={cn(
-        "bg-column p-4 rounded-[14px] flex-1 flex flex-col min-h-0 transition-colors duration-200",
+        "bg-column p-4 rounded-[14px] flex flex-col min-h-0 transition-colors duration-200 w-[calc(100vw-56px)] shrink-0 md:w-auto md:flex-1 md:min-w-70",
         isActive && "bg-column-active",
       )}
     >

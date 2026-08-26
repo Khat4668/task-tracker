@@ -24,7 +24,7 @@ const KanbanBoard = ({ issues }: Props) => {
       ]}
       {...dndHandlers}
     >
-      <div className="flex gap-4 flex-1 min-h-0">
+      <div className="flex flex-1 min-h-0 gap-3 overflow-x-auto -mx-4 px-7 md:mx-0 md:px-0 md:gap-4">
         {statuses.map((item) => {
           return (
             <KanbanColumn key={item} status={item} issues={columns[item]} />

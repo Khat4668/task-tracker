@@ -18,13 +18,13 @@ const KanbanBoardSkeleton = () => {
     <div
       role="status"
       aria-label="Loading issues"
-      className="flex gap-4 flex-1 min-h-0"
+      className="flex flex-1 min-h-0 gap-3 overflow-x-auto -mx-4 px-7 md:mx-0 md:px-0 md:gap-4"
     >
       {statuses.map((status) => (
         <div
           key={status}
           aria-hidden
-          className="bg-column p-4 rounded-[14px] flex-1 flex flex-col min-h-0"
+          className="bg-column p-4 rounded-[14px] flex flex-col min-h-0 w-[calc(100vw-56px)] shrink-0 md:w-auto md:flex-1 md:min-w-70"
         >
           <div className="flex gap-2 items-center mb-4 shrink-0">
             <div className="text-base">{statusLabels[status]}</div>
