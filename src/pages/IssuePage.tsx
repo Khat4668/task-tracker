@@ -107,7 +107,7 @@ const IssuePage = () => {
 
     return (
       <div className="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-[1fr_260px]">
-        <div>
+        <div className="min-w-0">
           <span className="font-mono text-xs text-muted-foreground">
             {issue.id.slice(0, 8).toUpperCase()}
           </span>
@@ -117,7 +117,7 @@ const IssuePage = () => {
             onSave={(title) => handleUpdateIssue({ id: issue.id, title })}
             validate={validateTitle}
             className={
-              "mt-1 mb-0.5 md:mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
+              "mt-1 mb-2 md:mb-6 -ml-2 text-2xl font-semibold tracking-tight w-full wrap-anywhere"
             }
             placeholder={"Issue title"}
           />

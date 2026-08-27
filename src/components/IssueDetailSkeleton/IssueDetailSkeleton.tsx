@@ -11,9 +11,9 @@ const IssueDetailSkeleton = () => {
       className="grid grid-cols-1 gap-6 md:gap-10 md:grid-cols-[1fr_260px]"
     >
       <div aria-hidden>
-        <Skeleton className="h-4 w-16 mb-6" />
+        <Skeleton className="h-3.5 w-16 mb-5" />
 
-        <Skeleton className="mt-1 mb-6 h-10.5 w-3/4" />
+        <Skeleton className="mt-1 mb-4 md:mb-6 h-10.5 w-3/4" />
 
         <div className="space-y-2">
           <Skeleton className="h-5 w-full" />
@@ -31,7 +31,7 @@ const IssueDetailSkeleton = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               {label}
             </p>
-            <Skeleton className="h-7.5 w-24" />
+            <Skeleton className="h-8.5 md:h-7.5 w-24" />
           </div>
         ))}
 
@@ -39,7 +39,7 @@ const IssueDetailSkeleton = () => {
           <p className="mb-1.5 text-xs font-medium text-muted-foreground">
             Created
           </p>
-          <Skeleton className="h-5 w-24" />
+          <Skeleton className="h-6 md:h-5 w-24" />
         </div>
 
         <Separator />
