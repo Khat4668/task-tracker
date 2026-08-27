@@ -23,6 +23,7 @@ import { issueSchema, type IssueFormData } from "@/lib/issue-schema";
 import { useCreateIssueMutation } from "@/store/issuesApi";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type Props = {
   isOpen: boolean;
@@ -34,7 +35,8 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    reset,
+    formState: { errors, isSubmitting },
   } = useForm<IssueFormData>({
     resolver: zodResolver(issueSchema),
   });
@@ -42,16 +44,27 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
   const [createIssue] = useCreateIssueMutation();
 
   const onSubmit = async (data: IssueFormData) => {
-    await createIssue({
-      ...data,
-      tag: data.tag || null,
-      description: data.description || null,
-    }).unwrap();
-    setIsOpen(false);
+    try {
+      await createIssue({
+        ...data,
+        tag: data.tag || null,
+        description: data.description || null,
+      }).unwrap();
+      reset();
+      setIsOpen(false);
+    } catch {
+      toast.error("Failed to add issue");
+    }
   };
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        setIsOpen(open);
+        if (!open) reset();
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Create Issue</DialogTitle>
@@ -127,7 +140,9 @@ const CreateIssueModal = ({ isOpen, setIsOpen }: Props) => {
             <Label>Tag</Label>
             <Input {...register("tag")} />
           </div>
-          <Button type="submit">Create</Button>
+          <Button disabled={isSubmitting} type="submit">
+            Create
+          </Button>
         </form>
       </DialogContent>
     </Dialog>
