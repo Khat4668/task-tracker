@@ -1,8 +1,20 @@
-export const statuses = ["backlog", "in_progress", "review", "done"] as const;
-export const priorities = ["low", "medium", "high"] as const;
+import type { Enums } from "@/types/database";
 
-export type Status = (typeof statuses)[number];
-export type Priority = (typeof priorities)[number];
+export type Status = Enums<"issue_status">;
+export type Priority = Enums<"issue_priority">;
+
+export const statuses = [
+  "backlog",
+  "in_progress",
+  "review",
+  "done",
+] as const satisfies readonly Status[];
+
+export const priorities = [
+  "low",
+  "medium",
+  "high",
+] as const satisfies readonly Priority[];
 
 export const statusLabels: Record<Status, string> = {
   backlog: "Backlog",

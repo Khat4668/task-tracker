@@ -1,13 +1,3 @@
-import type { Priority, Status } from "@/lib/issue-constants";
+import type { Tables } from "@/types/database";
 
-export type Issue = {
-  id: string;
-  title: string;
-  description: string | null;
-  status: Status;
-  priority: Priority;
-  tag: string | null;
-  created_at: string;
-  user_id: string;
-  position: number;
-};
+export type Issue = Tables<"issues">;
