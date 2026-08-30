@@ -25,13 +25,15 @@ export const getIssues = async (): Promise<Issue[]> => {
 };
 
 export const createIssue = async (issue: CreateIssueParams) => {
-  const { data: minData } = await supabase
+  const { data: minData, error: minError } = await supabase
     .from("issues")
     .select("position")
     .eq("status", issue.status)
     .order("position", { ascending: true })
     .limit(1)
     .maybeSingle();
+
+  if (minError) throw minError;
 
   const position = minData ? minData.position / 2 : 1;
 
