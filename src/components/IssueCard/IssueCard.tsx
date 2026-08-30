@@ -27,6 +27,7 @@ const IssueCard = memo(({ issue, index }: Props) => {
         isDragging &&
           "bg-surface-raised border-white/10 shadow-[0_20px_50px_-16px_rgba(0,0,0,1)]",
       )}
+      aria-label={`Drag ${issue.title}`}
     >
       <Link
         to={`/issues/${issue.id}`}
