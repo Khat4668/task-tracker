@@ -4,9 +4,18 @@ import { Button } from "@/components/ui/button";
 import { useGetSessionQuery } from "@/store/authApi";
 import { LayoutGrid, LogOut } from "lucide-react";
 import { Link } from "react-router";
+import { toast } from "sonner";
 
 const Header = () => {
   const { data: session } = useGetSessionQuery();
+
+  const handleSignOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      toast.error("Could not sign out. Please try again.");
+    }
+  };
 
   const isDemo = session?.user.is_anonymous === true;
 
@@ -26,7 +35,7 @@ const Header = () => {
             variant="ghost"
             size="sm"
             className="-mr-2.5"
-            onClick={() => supabase.auth.signOut()}
+            onClick={handleSignOut}
           >
             <LogOut />
             Sign out
