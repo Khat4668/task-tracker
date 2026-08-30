@@ -9,6 +9,7 @@ type Props = {
   className?: string;
   validate?: (value: string) => string | null;
   placeholder: string;
+  "aria-label"?: string;
 };
 
 const EditableText = ({
@@ -17,6 +18,7 @@ const EditableText = ({
   onSave,
   validate,
   placeholder,
+  "aria-label": ariaLabel,
 }: Props) => {
   const {
     isEditing,
@@ -44,7 +46,7 @@ const EditableText = ({
     return (
       <input
         className={cn(
-          "px-2 py-1 rounded-md border border-transparent bg-transparent outline-none placeholder:text-muted-foreground",
+          "px-2 py-1 border border-transparent bg-transparent outline-none placeholder:text-muted-foreground",
           className,
         )}
         type="text"
@@ -54,6 +56,7 @@ const EditableText = ({
         onKeyDown={handleKeyDown}
         onBlur={handleSaveWithToast}
         ref={ref}
+        aria-label={ariaLabel}
       />
     );
   } else {
@@ -65,6 +68,7 @@ const EditableText = ({
           className,
         )}
         onClick={startEditing}
+        aria-label={ariaLabel}
       >
         {value || <span className="text-muted-foreground">{placeholder}</span>}
       </button>

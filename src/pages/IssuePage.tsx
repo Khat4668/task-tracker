@@ -34,7 +34,6 @@ import {
 import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 
-// 16px на мобиле: iOS зумит страницу при фокусе в поле меньше 16px
 const fieldClass =
   "-ml-2 inline-flex w-fit items-center gap-1 rounded-md border border-transparent px-2 py-1 text-base md:text-sm text-foreground transition-all hover:bg-muted/50";
 
@@ -143,7 +142,10 @@ const IssuePage = () => {
               Status
             </p>
             <DropdownMenu>
-              <DropdownMenuTrigger className={triggerClass}>
+              <DropdownMenuTrigger
+                className={triggerClass}
+                aria-label={`Status: ${statusLabels[issue.status]}`}
+              >
                 {statusLabels[issue.status]}
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-32">
@@ -177,6 +179,7 @@ const IssuePage = () => {
                   priorityColors[issue.priority],
                   "border-transparent bg-transparent",
                 )}
+                aria-label={`Priority: ${priorityLabels[issue.priority]}`}
               >
                 {priorityLabels[issue.priority]}
               </DropdownMenuTrigger>
@@ -204,7 +207,12 @@ const IssuePage = () => {
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Tag
             </p>
-            <div className={fieldClass}>
+            <div
+              className={cn(
+                fieldClass,
+                "transition-[border-color,box-shadow] has-[input]:hover:bg-transparent",
+              )}
+            >
               <TagIcon className="h-3.5 w-3.5 shrink-0" />
               <EditableText
                 value={issue.tag ?? ""}
@@ -213,6 +221,7 @@ const IssuePage = () => {
                 }
                 className={"text-base md:text-sm px-0 py-0 border-0"}
                 placeholder={"Add tag"}
+                aria-label={`Tag: ${issue.tag || "empty"}`}
               />
             </div>
           </div>
