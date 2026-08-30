@@ -41,7 +41,10 @@ const IssueCard = memo(({ issue, index }: Props) => {
             {priorityLabels[issue.priority]}
           </Badge>
           {issue.tag && (
-            <Badge className="bg-muted text-muted-foreground">
+            <Badge
+              variant="outline"
+              className="text-muted-foreground border-white/15"
+            >
               {issue.tag}
             </Badge>
           )}
