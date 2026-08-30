@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import type { Issue } from "@/types";
 import { useSortable } from "@dnd-kit/react/sortable";
 import { memo } from "react";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 type Props = {
   issue: Issue;
@@ -13,8 +13,6 @@ type Props = {
 };
 
 const IssueCard = memo(({ issue, index }: Props) => {
-  const navigate = useNavigate();
-
   const { ref, isDragging } = useSortable({
     id: issue.id,
     index,
@@ -25,12 +23,17 @@ const IssueCard = memo(({ issue, index }: Props) => {
     <Card
       ref={ref}
       className={cn(
-        "w-full min-w-0 cursor-pointer transition-colors hover:bg-surface-raised outline-none focus-visible:ring-ring",
+        "w-full min-w-0 relative cursor-pointer transition-colors hover:bg-surface-raised outline-none focus-visible:ring-ring",
         isDragging &&
           "bg-surface-raised border-white/10 shadow-[0_20px_50px_-16px_rgba(0,0,0,1)]",
       )}
-      onClick={() => navigate(`/issues/${issue.id}`)}
     >
+      <Link
+        to={`/issues/${issue.id}`}
+        draggable={false}
+        className="absolute inset-0 rounded-[inherit] select-none [-webkit-touch-callout:none] focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none"
+        aria-label={issue.title}
+      />
       <CardContent className="px-4">
         <p className="mb-2 wrap-anywhere">{issue.title}</p>
         <div className="flex gap-2 mb-2">
