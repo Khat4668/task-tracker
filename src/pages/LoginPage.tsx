@@ -16,30 +16,32 @@ import { toast } from "sonner";
 const LoginPage = () => {
   const { data: session, isLoading } = useGetSessionQuery();
 
-  const [isPending, setIsPending] = useState(false);
+  const [pendingAction, setPendingAction] = useState<"google" | "demo" | null>(
+    null,
+  );
 
   const navigate = useNavigate();
 
-  if (isLoading) {
-    return null;
-  }
+  const handleLogin = async () => {
+    setPendingAction("google");
 
-  // Without this the board mounts before the demo data is created.
-  if (session && !isPending) {
-    return <Navigate to="/" replace />;
-  }
+    const { error: signInError } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+    });
 
-  const handleLogin = () => {
-    supabase.auth.signInWithOAuth({ provider: "google" });
+    if (signInError) {
+      toast.error("Could not log in. Please try again.");
+      setPendingAction(null);
+    }
   };
 
   const handleDemoLogin = async () => {
-    setIsPending(true);
+    setPendingAction("demo");
 
     const { error: signInError } = await supabase.auth.signInAnonymously();
     if (signInError) {
       toast.error("Could not start the demo. Please try again.");
-      setIsPending(false);
+      setPendingAction(null);
       return;
     }
 
@@ -50,6 +52,15 @@ const LoginPage = () => {
 
     navigate("/", { replace: true });
   };
+
+  if (isLoading) {
+    return null;
+  }
+
+  // Without this the board mounts before the demo data is created.
+  if (session && !pendingAction) {
+    return <Navigate to="/" replace />;
+  }
 
   return (
     <div className="flex min-h-dvh items-center justify-center px-4">
@@ -63,10 +74,12 @@ const LoginPage = () => {
             variant="default"
             className="w-full gap-2"
             onClick={handleLogin}
-            disabled={isPending}
+            disabled={pendingAction !== null}
           >
             <GoogleIcon />
-            Continue with Google
+            {pendingAction === "google"
+              ? "Signing in…"
+              : "Continue with Google"}
           </Button>
 
           <div className="flex items-center gap-3">
@@ -79,9 +92,9 @@ const LoginPage = () => {
             variant="outline"
             className="w-full"
             onClick={handleDemoLogin}
-            disabled={isPending}
+            disabled={pendingAction !== null}
           >
-            {isPending ? "Preparing demo…" : "Continue as guest"}
+            {pendingAction === "demo" ? "Preparing demo…" : "Continue as guest"}
           </Button>
         </CardContent>
       </Card>
