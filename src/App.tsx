@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 import BoardPage from "@/pages/BoardPage/BoardPage";
 import IssuePage from "@/pages/IssuePage";
 import LoginPage from "@/pages/LoginPage";
+import NotFoundPage from "@/pages/NotFoundPage";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
           <Route path="/board" element={<BoardPage />} />
           <Route path="/issues/:id" element={<IssuePage />} />
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <Toaster />
