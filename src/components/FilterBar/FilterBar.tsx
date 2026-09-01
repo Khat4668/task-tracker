@@ -39,6 +39,7 @@ const FilterBar = ({ className }: Props) => {
           onChange={(event) => dispatch(setTitle(event.target.value))}
           placeholder="Search issue"
           className="pl-7"
+          aria-label="Search by title"
         />
         <Search className="w-4 h-4 absolute top-1/2 -translate-y-1/2 left-2 pointer-events-none text-muted-foreground" />
       </div>
@@ -47,7 +48,10 @@ const FilterBar = ({ className }: Props) => {
           value={filters.priority}
           onValueChange={(value: Priority) => dispatch(setPriority(value))}
         >
-          <SelectTrigger className="w-full text-base md:text-sm">
+          <SelectTrigger
+            className="w-full text-base md:text-sm"
+            aria-label="Priority"
+          >
             <SelectValue placeholder="Select priority" />
           </SelectTrigger>
           <SelectContent>
@@ -67,6 +71,7 @@ const FilterBar = ({ className }: Props) => {
           value={filters.tag}
           onChange={(event) => dispatch(setTag(event.target.value))}
           placeholder="Search tag"
+          aria-label="Search by tag"
         />
       </div>
       {hasActiveFilters && (
