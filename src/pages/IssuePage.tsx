@@ -31,7 +31,7 @@ import {
   SearchX,
   Tag as TagIcon,
 } from "lucide-react";
-import { useNavigate, useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import { toast } from "sonner";
 
 const fieldClass =
@@ -41,7 +41,6 @@ const triggerClass = `${fieldClass} outline-none focus-visible:border-ring focus
 
 const IssuePage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
 
   const { issue, isLoading, error } = useGetIssuesQuery(undefined, {
     selectFromResult: ({ data, isLoading, error }) => ({
@@ -84,7 +83,7 @@ const IssuePage = () => {
             title="Couldn't load issue"
             description="Something went wrong. Check your connection and try again."
             actionLabel="Back to board"
-            onAction={() => navigate("/board")}
+            actionHref="/board"
           />
         </div>
       );
@@ -98,7 +97,7 @@ const IssuePage = () => {
             title="Issue not found"
             description="This issue may have been deleted."
             actionLabel="Back to board"
-            onAction={() => navigate("/board")}
+            actionHref="/board"
           />
         </div>
       );
@@ -251,10 +250,12 @@ const IssuePage = () => {
       <Button
         variant="ghost"
         size="sm"
+        asChild
         className="mb-3 md:mb-6 -ml-2.5 self-start text-muted-foreground"
-        onClick={() => navigate("/board")}
       >
-        <ArrowLeft className="mr-2 h-4 w-4" /> Board
+        <Link to="/board">
+          <ArrowLeft className="mr-2 h-4 w-4" /> Board
+        </Link>
       </Button>
 
       {renderContent()}
