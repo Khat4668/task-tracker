@@ -31,6 +31,7 @@ import {
   SearchX,
   Tag as TagIcon,
 } from "lucide-react";
+import { useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { toast } from "sonner";
 
@@ -51,6 +52,16 @@ const IssuePage = () => {
   });
 
   const [updateIssue] = useUpdateIssueMutation();
+
+  useEffect(() => {
+    if (!issue) return;
+
+    document.title = `${issue.title} · Task Tracker`;
+
+    return () => {
+      document.title = "Task Tracker";
+    };
+  }, [issue]);
 
   const handleUpdateIssue = async ({ id, ...patch }: UpdateIssueParams) => {
     try {
