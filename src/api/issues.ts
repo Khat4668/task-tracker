@@ -1,12 +1,10 @@
 import type { IssueFormData } from "@/lib/issue-schema";
-import type { Issue } from "@/types";
+import type { Issue, IssueUpdate } from "@/types";
 import { supabase } from "./supabase";
 
-export type UpdateIssueParams = { id: string } & Partial<
-  Pick<
-    Issue,
-    "title" | "status" | "position" | "priority" | "tag" | "description"
-  >
+export type UpdateIssueParams = { id: string } & Omit<
+  IssueUpdate,
+  "id" | "created_at" | "user_id"
 >;
 
 export type CreateIssueParams = Omit<IssueFormData, "tag" | "description"> & {
