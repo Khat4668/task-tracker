@@ -34,7 +34,7 @@ const FiltersSheet = ({ className }: Props) => {
           )}
         </Button>
       </SheetTrigger>
-      <SheetContent side="bottom">
+      <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Filters</SheetTitle>
         </SheetHeader>
