@@ -24,7 +24,7 @@ const IssueDetailSkeleton = () => {
 
       <div
         aria-hidden
-        className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:pl-6 md:pt-0"
+        className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:border-l md:pl-10 md:pt-0"
       >
         {SIDEBAR_FIELDS.map((label) => (
           <div key={label}>

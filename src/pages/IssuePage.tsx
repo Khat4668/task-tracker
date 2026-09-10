@@ -146,7 +146,7 @@ const IssuePage = () => {
           />
         </div>
 
-        <div className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:pl-6 md:pt-0">
+        <div className="space-y-4 md:space-y-5 border-t pt-6 md:border-t-0 md:border-l md:pl-10 md:pt-0">
           <div>
             <p className="mb-1.5 text-xs font-medium text-muted-foreground">
               Status
