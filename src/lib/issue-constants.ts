@@ -34,7 +34,7 @@ export const statusIcons: Record<Status, LucideIcon> = {
 export const priorityColors: Record<Priority, string> = {
   low: "text-sky-400 border-sky-500/40",
   medium: "text-amber-400 border-amber-500/40",
-  high: "text-red-400 border-orange-500/40",
+  high: "text-red-400 border-red-500/40",
 };
 
 export const priorityLabels: Record<Priority, string> = {
