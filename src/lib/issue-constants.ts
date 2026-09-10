@@ -1,4 +1,5 @@
 import type { Enums } from "@/types/database";
+import { CircleCheck, Clock, Eye, Inbox, type LucideIcon } from "lucide-react";
 
 export type Status = Enums<"issue_status">;
 export type Priority = Enums<"issue_priority">;
@@ -21,6 +22,13 @@ export const statusLabels: Record<Status, string> = {
   in_progress: "In Progress",
   review: "Review",
   done: "Done",
+};
+
+export const statusIcons: Record<Status, LucideIcon> = {
+  backlog: Inbox,
+  in_progress: Clock,
+  review: Eye,
+  done: CircleCheck,
 };
 
 export const priorityColors: Record<Priority, string> = {

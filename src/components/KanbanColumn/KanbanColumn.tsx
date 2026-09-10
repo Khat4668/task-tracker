@@ -1,6 +1,6 @@
 import IssueCard from "@/components/IssueCard/IssueCard";
 import type { Status } from "@/lib/issue-constants";
-import { statusLabels } from "@/lib/issue-constants";
+import { statusIcons, statusLabels } from "@/lib/issue-constants";
 import { cn } from "@/lib/utils";
 import type { Issue } from "@/types";
 import { CollisionPriority } from "@dnd-kit/abstract";
@@ -23,6 +23,8 @@ const KanbanColumn = ({ status, issues }: Props) => {
   const isActive =
     source != null && issues.some((issue) => issue.id === source.id);
 
+  const Icon = statusIcons[status];
+
   return (
     <div
       ref={ref}
@@ -32,6 +34,7 @@ const KanbanColumn = ({ status, issues }: Props) => {
       )}
     >
       <div className="flex gap-2 items-center mb-4 shrink-0">
+        <Icon className="w-5 h-5" aria-hidden />
         <div className="text-base">{statusLabels[status]}</div>
         <div className="text-xs text-muted-foreground">{issues.length}</div>
       </div>
