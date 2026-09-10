@@ -7,7 +7,7 @@ import KanbanBoardSkeleton from "@/components/KanbanBoardSkeleton/KanbanBoardSke
 import { Button } from "@/components/ui/button";
 import { useAppSelector } from "@/store/hooks";
 import { useGetIssuesQuery } from "@/store/issuesApi";
-import { AlertCircle, FilterX, LayoutGrid } from "lucide-react";
+import { AlertCircle, FilterX, LayoutGrid, Plus } from "lucide-react";
 import { useState } from "react";
 import { filterIssues } from "./filterIssues";
 
@@ -78,6 +78,7 @@ const BoardPage = () => {
           disabled={isLoading}
           onClick={() => setIsOpen(true)}
         >
+          <Plus className="w-4 h-4" aria-hidden />
           Add Issue
         </Button>
       </div>
