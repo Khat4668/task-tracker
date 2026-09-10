@@ -1,3 +1,4 @@
+import EmptyState from "@/components/EmptyState/EmptyState";
 import IssueCard from "@/components/IssueCard/IssueCard";
 import { Badge } from "@/components/ui/badge";
 import type { Status } from "@/lib/issue-constants";
@@ -43,9 +44,19 @@ const KanbanColumn = ({ status, issues }: Props) => {
       </div>
 
       <div className="flex flex-col gap-4 flex-1 min-h-0 overflow-y-auto *:shrink-0 pr-3 -mr-3 md:pr-2 md:-mr-2 py-px pl-px -ml-px">
-        {issues.map((issue, index) => {
-          return <IssueCard key={issue.id} issue={issue} index={index} />;
-        })}
+        {issues.length === 0 ? (
+          <div className="flex flex-1 shrink items-center justify-center pb-14">
+            <EmptyState
+              icon={<Icon className="w-6 h-6" />}
+              title="No issues here"
+              description="Drag issues here to move them to this column."
+            />
+          </div>
+        ) : (
+          issues.map((issue, index) => (
+            <IssueCard key={issue.id} issue={issue} index={index} />
+          ))
+        )}
       </div>
     </div>
   );
