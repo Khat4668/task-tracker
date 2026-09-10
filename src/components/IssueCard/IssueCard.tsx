@@ -4,6 +4,7 @@ import { priorityColors, priorityLabels } from "@/lib/issue-constants";
 import { cn } from "@/lib/utils";
 import type { Issue } from "@/types";
 import { useSortable } from "@dnd-kit/react/sortable";
+import { Calendar } from "lucide-react";
 import { memo } from "react";
 import { Link } from "react-router";
 
@@ -37,7 +38,7 @@ const IssueCard = memo(({ issue, index }: Props) => {
       />
       <CardContent className="px-4">
         <p className="mb-2 wrap-anywhere">{issue.title}</p>
-        <div className="flex gap-2 mb-2">
+        <div className="flex gap-2 mb-3">
           <Badge className={priorityColors[issue.priority]} variant="outline">
             {priorityLabels[issue.priority]}
           </Badge>
@@ -50,9 +51,12 @@ const IssueCard = memo(({ issue, index }: Props) => {
             </Badge>
           )}
         </div>
-        <p className="text-xs">
-          Created {new Date(issue.created_at).toLocaleDateString("en-US")}
-        </p>
+        <div className="flex gap-2 items-center text-muted-foreground">
+          <Calendar className="w-3.5 h-3.5" aria-hidden />
+          <p className="text-xs">
+            Created {new Date(issue.created_at).toLocaleDateString("en-US")}
+          </p>
+        </div>
       </CardContent>
     </Card>
   );
